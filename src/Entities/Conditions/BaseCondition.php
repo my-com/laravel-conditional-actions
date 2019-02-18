@@ -46,7 +46,7 @@ abstract class BaseCondition implements ConditionContract
     }
 
     /**
-     * Determines whether this condition should met.
+     * Determines whether this condition result should be inverted.
      *
      * @return bool
      */
