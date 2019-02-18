@@ -1,0 +1,26 @@
+{
+    "name": "xxxcoltxxx/conditional-actions",
+    "authors": [
+        {
+            "name": "Aleksandr Paramonov",
+            "email": "a.paramonov@corp.my.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ConditionalActions\\": "./src"
+        }
+    },
+    "require": {
+        "illuminate/support": "^5.6",
+        "illuminate/database": "^5.6",
+        "illuminate/config": "^5.6",
+        "illuminate/http": "^5.6",
+        "ext-json": "*"
+    },
+    "extra": {
+        "laravel": {
+            "providers": "ConditionalActions\\ConditionalActionsServiceProvider"
+        }
+    }
+}
