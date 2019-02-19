@@ -14,6 +14,7 @@ use Illuminate\Support\Carbon;
  * @property int condition_id
  * @property string name
  * @property array|null parameters
+ * @property int priority
  * @property Carbon|null starts_at
  * @property Carbon|null ends_at
  * @property Carbon|null created_at
