@@ -9,4 +9,5 @@ return [
     'actions' => [
         'UpdateStateAttribute' => ConditionalActions\Entities\Actions\UpdateStateAttributeAction::class,
     ],
+    'use_logger' => env('APP_DEBUG', false),
 ];
