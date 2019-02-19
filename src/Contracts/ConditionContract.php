@@ -5,20 +5,6 @@ namespace ConditionalActions\Contracts;
 interface ConditionContract
 {
     /**
-     * Determines whether this condition result should be inverted.
-     *
-     * @return bool
-     */
-    public function isInverted(): bool;
-
-    /**
-     * Gets the actions for the condition.
-     *
-     * @return iterable|ActionContract[]
-     */
-    public function getActions(): iterable;
-
-    /**
      * Checks that the condition is met.
      *
      * @param TargetContract $target
@@ -36,11 +22,27 @@ interface ConditionContract
     public function setActions(?iterable $actions): self;
 
     /**
+     * Gets the actions for the condition.
+     *
+     * @return iterable|ActionContract[]
+     */
+    public function getActions(): iterable;
+
+    /**
+     * Sets identifier.
+     *
      * @param int $id
      *
      * @return ConditionContract
      */
     public function setId(int $id): self;
+
+    /**
+     * Gets identifier.
+     *
+     * @return int
+     */
+    public function getId(): int;
 
     /**
      * @param bool|null $isInverted
@@ -50,9 +52,28 @@ interface ConditionContract
     public function setIsInverted(?bool $isInverted): self;
 
     /**
+     * Determines whether this condition result should be inverted.
+     *
+     * @return bool
+     */
+    public function isInverted(): bool;
+
+    /**
      * @param array|null $parameters
      *
      * @return ConditionContract
      */
     public function setParameters(?array $parameters): self;
+
+    /**
+     * @return int|null
+     */
+    public function getParentId(): ?int;
+
+    /**
+     * @param int|null $parentId
+     *
+     * @return ConditionContract
+     */
+    public function setParentId(?int $parentId): self;
 }

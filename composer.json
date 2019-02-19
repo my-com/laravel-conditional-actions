@@ -11,6 +11,11 @@
             "ConditionalActions\\": "./src"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "./tests"
+        }
+    },
     "require": {
         "illuminate/support": "^5.6",
         "illuminate/database": "^5.6",
@@ -22,5 +27,8 @@
         "laravel": {
             "providers": "ConditionalActions\\ConditionalActionsServiceProvider"
         }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.7"
     }
 }

@@ -17,13 +17,17 @@ class AllOfCondition extends BaseCondition
      */
     public function check(TargetContract $target, StateContract $state): bool
     {
+        $actions = [];
+
         foreach ($target->getChildrenConditions($this->id) as $condition) {
             if ($condition->check($target, $state) !== $this->expectedResult()) {
                 return false;
             } else {
-                $this->addActions(...$condition->getActions());
+                $actions = \array_merge($actions, $condition->getActions());
             }
         }
+
+        $this->addActions(...$actions);
 
         return true;
     }

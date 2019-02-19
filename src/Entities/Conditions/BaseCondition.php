@@ -13,13 +13,26 @@ abstract class BaseCondition implements ConditionContract
     protected $id;
 
     /** @var bool|null */
-    protected $isInverted;
+    protected $isInverted = false;
 
     /** @var iterable|null */
-    protected $actions;
+    protected $actions = [];
 
     /** @var iterable */
     protected $parameters = [];
+
+    /** @var int|null */
+    protected $parentId;
+
+    /**
+     * Checks that the condition is met.
+     *
+     * @param TargetContract $target
+     * @param StateContract $state
+     *
+     * @return bool
+     */
+    abstract public function check(TargetContract $target, StateContract $state): bool;
 
     /**
      * @param int $id
@@ -31,6 +44,34 @@ abstract class BaseCondition implements ConditionContract
         $this->id = $id;
 
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int|null $parentId
+     *
+     * @return ConditionContract
+     */
+    public function setParentId(?int $parentId): ConditionContract
+    {
+        $this->parentId = $parentId;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getParentId(): ?int
+    {
+        return $this->parentId;
     }
 
     /**
@@ -100,16 +141,6 @@ abstract class BaseCondition implements ConditionContract
 
         return $this;
     }
-
-    /**
-     * Checks that the condition is met.
-     *
-     * @param TargetContract $target
-     * @param StateContract $state
-     *
-     * @return bool
-     */
-    abstract public function check(TargetContract $target, StateContract $state): bool;
 
     protected function expectedResult(): bool
     {
