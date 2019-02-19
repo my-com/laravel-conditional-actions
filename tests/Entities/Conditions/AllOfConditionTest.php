@@ -5,47 +5,26 @@ namespace Tests\Entities\Conditions;
 use ConditionalActions\Entities\Conditions\AllOfCondition;
 use Tests\Dummy\DummyAction;
 use Tests\Dummy\DummyCondition;
-use Tests\Dummy\DummyFailedCondition;
-use Tests\Dummy\DummySucceedCondition;
-use Tests\Dummy\DummyTarget;
-use Tests\TestCase;
 
-class AllOfConditionTest extends TestCase
+class AllOfConditionTest extends HasChildrenConditionsTestCase
 {
-    /** @var DummyTarget */
-    private $target;
-
-    /** @var DummyAction */
-    private $action;
-
-    /** @var AllOfCondition */
-    private $allOfCondition;
-
     protected function setUp()
     {
+        $this->testCondition = new AllOfCondition();
         parent::setUp();
-
-        $this->target = new DummyTarget();
-        $this->action = new DummyAction();
-
-        $this->allOfCondition = new AllOfCondition();
-        $this->allOfCondition->setId(5);
-        $this->allOfCondition->setActions([$this->action]);
-
-        $this->target->addConditions($this->allOfCondition);
     }
 
     public function test_true_when_all_conditions_is_succeed()
     {
         /** @var DummyCondition[] $conditions */
         $conditions = [
-            new DummySucceedCondition(2, 5),
-            new DummySucceedCondition(3, 5),
-            new DummySucceedCondition(4, 5),
+            $this->succeedChildrenCondition(),
+            $this->succeedChildrenCondition(),
+            $this->succeedChildrenCondition(),
         ];
         $this->target->addConditions(...$conditions);
 
-        $result = $this->allOfCondition->check($this->target, $this->target->getState());
+        $result = $this->testCondition->check($this->target, $this->target->getState());
 
         $this->assertTrue($result);
         $this->assertTrue($conditions[0]->isFired);
@@ -57,13 +36,13 @@ class AllOfConditionTest extends TestCase
     {
         /** @var DummyCondition[] $conditions */
         $conditions = [
-            new DummySucceedCondition(2, 5),
-            new DummyFailedCondition(3, 5),
-            new DummySucceedCondition(4, 5),
+            $this->succeedChildrenCondition(),
+            $this->failedChildrenCondition(),
+            $this->succeedChildrenCondition(),
         ];
         $this->target->addConditions(...$conditions);
 
-        $result = $this->allOfCondition->check($this->target, $this->target->getState());
+        $result = $this->testCondition->check($this->target, $this->target->getState());
 
         $this->assertFalse($result);
 
@@ -77,30 +56,30 @@ class AllOfConditionTest extends TestCase
         $action1 = new DummyAction();
         /** @var DummyCondition[] $conditions */
         $conditions = [
-            new DummySucceedCondition(2, 5),
-            DummySucceedCondition::withActions(3, 5, $action1),
+            $this->succeedChildrenCondition(),
+            $this->succeedChildrenCondition($action1),
         ];
         $this->target->addConditions(...$conditions);
 
-        $result = $this->allOfCondition->check($this->target, $this->target->getState());
+        $result = $this->testCondition->check($this->target, $this->target->getState());
 
         $this->assertTrue($result);
-        $this->assertEquals([$this->action, $action1], $this->allOfCondition->getActions());
+        $this->assertEquals([$this->action, $action1], $this->testCondition->getActions());
     }
 
     public function test_child_actions_not_collected_when_failed()
     {
         /** @var DummyCondition[] $conditions */
         $conditions = [
-            new DummySucceedCondition(2, 5),
-            DummySucceedCondition::withActions(3, 5, new DummyAction()),
-            new DummyFailedCondition(4, 5),
+            $this->succeedChildrenCondition(),
+            $this->succeedChildrenCondition(new DummyAction()),
+            $this->failedChildrenCondition(new DummyAction()),
         ];
         $this->target->addConditions(...$conditions);
 
-        $result = $this->allOfCondition->check($this->target, $this->target->getState());
+        $result = $this->testCondition->check($this->target, $this->target->getState());
 
         $this->assertFalse($result);
-        $this->assertEquals([$this->action], $this->allOfCondition->getActions());
+        $this->assertEquals([$this->action], $this->testCondition->getActions());
     }
 }
