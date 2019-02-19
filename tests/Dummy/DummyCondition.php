@@ -2,6 +2,7 @@
 
 namespace Tests\Dummy;
 
+use ConditionalActions\Contracts\ActionContract;
 use ConditionalActions\Entities\Conditions\BaseCondition;
 
 abstract class DummyCondition extends BaseCondition
@@ -16,6 +17,13 @@ abstract class DummyCondition extends BaseCondition
     {
         $this->id = $id;
         $this->parentId = $parentId;
+    }
+
+    public static function withActions(int $id, int $parentId, ActionContract ...$actions): self
+    {
+        return \tap(new static($id, $parentId), function (self $condition) use ($actions) {
+            $condition->setActions($actions);
+        });
     }
 
     /**
