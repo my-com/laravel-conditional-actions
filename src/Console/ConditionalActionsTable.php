@@ -85,7 +85,7 @@ class ConditionalActionsTable extends Command
     }
 
     /**
-     * Replace the generated migration with the failed job table stub.
+     * Replace the generated migration with the table stub.
      *
      * @param  string $path
      * @param  string $table
