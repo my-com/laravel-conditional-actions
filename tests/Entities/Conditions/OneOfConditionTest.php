@@ -15,11 +15,10 @@ class OneOfConditionTest extends HasChildrenConditionsTestCase
 
     public function test_true_when_has_succeed_conditions()
     {
-        $actions = [new DummyAction(), new DummyAction(), new DummyAction()];
         $conditions = [
-            $this->failedChildrenCondition($actions[0]),
-            $this->succeedChildrenCondition($actions[1]),
-            $this->succeedChildrenCondition($actions[2]),
+            $this->failedChildrenCondition(new DummyAction()),
+            $this->succeedChildrenCondition(new DummyAction()),
+            $this->succeedChildrenCondition(new DummyAction()),
         ];
         $this->target->addConditions(...$conditions);
 
@@ -33,10 +32,9 @@ class OneOfConditionTest extends HasChildrenConditionsTestCase
 
     public function test_false_when_no_succeeds()
     {
-        $actions = [new DummyAction(), new DummyAction()];
         $conditions = [
-            $this->failedChildrenCondition($actions[0]),
-            $this->failedChildrenCondition($actions[1]),
+            $this->failedChildrenCondition(new DummyAction()),
+            $this->failedChildrenCondition(new DummyAction()),
         ];
         $this->target->addConditions(...$conditions);
 
@@ -67,10 +65,9 @@ class OneOfConditionTest extends HasChildrenConditionsTestCase
 
     public function test_dont_collect_actions_when_no_succeed_conditions()
     {
-        $actions = [new DummyAction(), new DummyAction()];
         $conditions = [
-            $this->failedChildrenCondition($actions[0]),
-            $this->failedChildrenCondition($actions[1]),
+            $this->failedChildrenCondition(new DummyAction()),
+            $this->failedChildrenCondition(new DummyAction()),
         ];
         $this->target->addConditions(...$conditions);
 

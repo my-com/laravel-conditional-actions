@@ -6,7 +6,6 @@ use ConditionalActions\ConditionActionManager;
 use ConditionalActions\Contracts\StateContract;
 use ConditionalActions\Contracts\TargetContract;
 use ConditionalActions\Entities\State;
-use Illuminate\Container\Container;
 
 /**
  * @mixin TargetContract
