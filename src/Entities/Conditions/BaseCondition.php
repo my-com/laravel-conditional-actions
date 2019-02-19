@@ -68,6 +68,18 @@ abstract class BaseCondition implements ConditionContract
     }
 
     /**
+     * Adds actions to actions queue.
+     *
+     * @param ActionContract ...$actions
+     */
+    protected function addActions(ActionContract ...$actions)
+    {
+        foreach ($actions as $action) {
+            $this->actions[] = $action;
+        }
+    }
+
+    /**
      * Gets the actions for the condition.
      *
      * @return iterable|ActionContract[]

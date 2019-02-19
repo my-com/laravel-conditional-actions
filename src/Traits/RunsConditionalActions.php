@@ -17,12 +17,14 @@ trait RunsConditionalActions
 
     protected function newState(iterable $attributes): StateContract
     {
+        $this->useLogger = \config('conditional-actions.use_logger');
+
         return new State($attributes);
     }
 
-    public function useLogger(bool $use = true): self
+    public function useLogger(): self
     {
-        $this->useLogger = $use;
+        $this->useLogger = true;
 
         return $this;
     }
@@ -30,7 +32,7 @@ trait RunsConditionalActions
     public function runConditionalActions()
     {
         /** @var ConditionActionManager $manager */
-        $manager = Container::getInstance()->make(ConditionActionManager::class);
+        $manager = \app(ConditionActionManager::class);
         $manager->useLogger = $this->useLogger;
         $manager->run($this, $this->getState());
     }

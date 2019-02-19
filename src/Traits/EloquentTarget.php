@@ -39,7 +39,9 @@ trait EloquentTarget
     public function getChildrenConditions(?int $parentId): iterable
     {
         return $this->conditions
-            ->where('parent_id', $parentId)
+            ->filter(function (Condition $condition) use ($parentId) {
+                return $condition->parent_id === $parentId && $condition->isActive();
+            })
             ->sortBy('priority')
             ->map(function (Condition $condition) {
                 return $condition->toCondition();

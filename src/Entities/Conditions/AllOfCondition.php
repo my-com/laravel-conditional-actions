@@ -20,6 +20,8 @@ class AllOfCondition extends BaseCondition
         foreach ($target->getChildrenConditions($this->id) as $condition) {
             if ($condition->check($target, $state) !== $this->expectedResult()) {
                 return false;
+            } else {
+                $this->addActions(...$condition->getActions());
             }
         }
 

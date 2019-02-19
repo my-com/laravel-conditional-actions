@@ -25,6 +25,7 @@ class ConditionAction extends Model
         'condition_id',
         'name',
         'parameters',
+        'priority',
         'starts_at',
         'ends_at',
     ];
@@ -34,6 +35,14 @@ class ConditionAction extends Model
         'ends_at' => 'datetime',
         'parameters' => 'array',
     ];
+
+    public function isActive(): bool
+    {
+        return Carbon::now()->between(
+            $this->starts_at ?? Carbon::minValue(),
+            $this->ends_at ?? Carbon::maxValue()
+        );
+    }
 
     /**
      * @throws \Throwable

@@ -18,6 +18,7 @@ class Create{{tableClassName}}Table extends Migration
             $table->unsignedInteger('condition_id');
             $table->string('name');
             $table->json('parameters')->nullable();
+            $table->integer('priority')->default(0);
             $table->timestamp('starts_at')->nullable();
             $table->timestamp('ends_at')->nullable();
             $table->timestamps();

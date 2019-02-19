@@ -28,7 +28,7 @@ class ConditionActionManager
                 $condition->isInverted() ? 'Inverted condition' : 'Condition',
                 \class_basename($condition)
             );
-            if ($condition->check($target, $state) === !$condition->isInverted()) {
+            if ($condition->check($target, $state) !== $condition->isInverted()) {
                 $this->log("[OK]\t" . $conditionName);
 
                 foreach ($condition->getActions() as $action) {

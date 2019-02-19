@@ -19,6 +19,8 @@ class OneOfCondition extends BaseCondition
     {
         foreach ($target->getChildrenConditions($this->id) as $condition) {
             if ($condition->check($target, $state) === $this->expectedResult()) {
+                $this->addActions(...$condition->getActions());
+
                 return true;
             }
         }

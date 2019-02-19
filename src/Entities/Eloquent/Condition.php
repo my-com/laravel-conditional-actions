@@ -53,6 +53,19 @@ class Condition extends Model
         return $this->hasMany(ConditionAction::class);
     }
 
+    public function childrenConditions(): HasMany
+    {
+        return $this->hasMany(Condition::class, 'parent_id', 'id');
+    }
+
+    public function isActive(): bool
+    {
+        return Carbon::now()->between(
+            $this->starts_at ?? Carbon::minValue(),
+            $this->ends_at ?? Carbon::maxValue()
+        );
+    }
+
     /**
      * @throws \Throwable
      *
@@ -60,7 +73,7 @@ class Condition extends Model
      */
     public function toCondition(): ConditionContract
     {
-        $className = Container::getInstance()->make('config')->get("conditional-actions.conditions.{$this->name}");
+        $className = \config("conditional-actions.conditions.{$this->name}");
 
         \throw_unless(
             $className,
@@ -70,13 +83,26 @@ class Condition extends Model
         );
 
         /** @var ConditionContract $condition */
-        $condition = Container::getInstance()->make($className);
+        $condition = \app($className);
 
         return $condition->setId($this->id)
-            ->setActions($this->conditionActions->map(function (ConditionAction $action) {
+            ->setActions($this->getActiveActions()->map(function (ConditionAction $action) {
                 return $action->toAction();
             }))
             ->setIsInverted($this->is_inverted)
             ->setParameters($this->parameters);
+    }
+
+    /**
+     * @return ConditionAction[]|Collection
+     */
+    public function getActiveActions()
+    {
+        return $this->conditionActions
+            ->filter(function (ConditionAction $action) {
+                return $action->isActive();
+            })
+            ->sortBy('priority')
+            ->values();
     }
 }
