@@ -45,6 +45,9 @@ class Condition extends Model
         'ends_at' => 'datetime',
         'parameters' => 'array',
         'is_inverted' => 'boolean',
+        'priority' => 'int',
+        'parent_id' => 'int',
+        'target_id' => 'int',
     ];
 
     public function conditionActions(): HasMany

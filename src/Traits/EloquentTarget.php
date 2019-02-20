@@ -45,6 +45,7 @@ trait EloquentTarget
             ->sortBy('priority')
             ->map(function (Condition $condition) {
                 return $condition->toCondition();
-            });
+            })
+            ->values();
     }
 }

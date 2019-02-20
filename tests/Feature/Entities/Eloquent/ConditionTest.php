@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Entities\Eloquent;
 
-use ConditionalActions\Contracts\ConditionContract;
 use ConditionalActions\Entities\Conditions\TrueCondition;
 use ConditionalActions\Entities\Eloquent\Condition;
 use ConditionalActions\Entities\Eloquent\ConditionAction;
@@ -32,7 +31,7 @@ class ConditionTest extends EloquentTestCase
     public function test_is_active(bool $isActive, $startsAt, $endsAt)
     {
         /** @var Condition $condition */
-        $condition = \factory(Condition::class)->create([
+        $condition = \create(Condition::class, [
             'starts_at' => $startsAt,
             'ends_at' => $endsAt,
         ]);
@@ -61,7 +60,7 @@ class ConditionTest extends EloquentTestCase
     public function test_to_condition_exception_when_condition_not_exists()
     {
         /** @var Condition $condition */
-        $condition = \factory(Condition::class)->create(['name' => 'NotExists']);
+        $condition = \create(Condition::class, ['name' => 'NotExists']);
 
         $this->expectException(ConditionNotFoundException::class);
         $this->expectExceptionCode(Response::HTTP_NOT_FOUND);
@@ -73,13 +72,13 @@ class ConditionTest extends EloquentTestCase
     public function test_to_condition_make_correct_condition()
     {
         /** @var Condition $condition */
-        $condition = \factory(Condition::class)->create([
+        $condition = \create(Condition::class, [
             'name' => 'True',
             'is_inverted' => true,
             'parameters' => ['one' => 'first'],
         ]);
         /** @var ConditionAction $action */
-        $action = \factory(ConditionAction::class)->create();
+        $action = \create(ConditionAction::class);
         $condition->conditionActions()->save($action);
 
         $actualCondition = $condition->toCondition();
@@ -94,10 +93,10 @@ class ConditionTest extends EloquentTestCase
     public function test_get_active_actions_filtered_not_active()
     {
         /** @var Condition $condition */
-        $condition = \factory(Condition::class)->create();
+        $condition = \create(Condition::class);
         /** @var ConditionAction $action */
-        $activeAction = \factory(ConditionAction::class)->create();
-        $inactiveAction = \factory(ConditionAction::class)->create(['ends_at' => Carbon::yesterday()]);
+        $activeAction = \create(ConditionAction::class);
+        $inactiveAction = \create(ConditionAction::class, ['ends_at' => Carbon::yesterday()]);
         $condition->conditionActions()->saveMany([$activeAction, $inactiveAction]);
 
         $actions = $condition->getActiveActions();
@@ -108,11 +107,8 @@ class ConditionTest extends EloquentTestCase
     public function test_get_active_actions_sorted_by_priority()
     {
         /** @var Condition $condition */
-        $condition = \factory(Condition::class)->create();
-        /** @var ConditionAction $action */
-        $action10 = \factory(ConditionAction::class)->create(['priority' => 10]);
-        $action5 = \factory(ConditionAction::class)->create(['priority' => 5]);
-        $action20 = \factory(ConditionAction::class)->create(['priority' => 20]);
+        $condition = \create(Condition::class);
+        [$action10, $action5, $action20] = \createMany(ConditionAction::class, ['priority'], [[10], [5], [20]]);
         $condition->conditionActions()->saveMany([$action10, $action5, $action20]);
 
         $actions = $condition->getActiveActions();

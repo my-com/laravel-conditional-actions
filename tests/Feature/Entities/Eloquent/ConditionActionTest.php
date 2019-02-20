@@ -30,7 +30,7 @@ class ConditionActionTest extends EloquentTestCase
     public function test_is_active(bool $isActive, $startsAt, $endsAt)
     {
         /** @var ConditionAction $action */
-        $action = \factory(ConditionAction::class)->create([
+        $action = \create(ConditionAction::class, [
             'starts_at' => $startsAt,
             'ends_at' => $endsAt,
         ]);
@@ -59,7 +59,7 @@ class ConditionActionTest extends EloquentTestCase
     public function test_to_action_exception_when_action_not_exists()
     {
         /** @var ConditionAction $action */
-        $action = \factory(ConditionAction::class)->create(['name' => 'NotExists']);
+        $action = \create(ConditionAction::class, ['name' => 'NotExists']);
 
         $this->expectException(ConditionActionNotFoundException::class);
         $this->expectExceptionCode(Response::HTTP_NOT_FOUND);
@@ -71,7 +71,7 @@ class ConditionActionTest extends EloquentTestCase
     public function test_to_action_make_correct_action()
     {
         /** @var ConditionAction $action */
-        $action = \factory(ConditionAction::class)->create([
+        $action = \create(ConditionAction::class, [
             'name' => 'UpdateStateAttribute',
             'parameters' => ['one' => 'first'],
         ]);

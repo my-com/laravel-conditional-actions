@@ -34,6 +34,8 @@ class ConditionAction extends Model
         'starts_at' => 'datetime',
         'ends_at' => 'datetime',
         'parameters' => 'array',
+        'priority' => 'int',
+        'condition_id' => 'int',
     ];
 
     public function isActive(): bool
