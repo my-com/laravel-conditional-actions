@@ -2,7 +2,7 @@
 
 namespace ConditionalActions\Entities\Conditions;
 
-use ConditionalActions\Contracts\ActionContract;
+use ConditionalActions\Contracts\ConditionActionContract;
 use ConditionalActions\Contracts\ConditionContract;
 use ConditionalActions\Contracts\StateContract;
 use ConditionalActions\Contracts\TargetContract;
@@ -123,7 +123,7 @@ abstract class BaseCondition implements ConditionContract
     /**
      * Gets the condition actions.
      *
-     * @return iterable|ActionContract[]
+     * @return iterable|ConditionActionContract[]
      */
     public function getActions(): iterable
     {
@@ -133,9 +133,9 @@ abstract class BaseCondition implements ConditionContract
     /**
      * Adds actions to actions queue.
      *
-     * @param ActionContract ...$actions
+     * @param ConditionActionContract ...$actions
      */
-    protected function addActions(ActionContract ...$actions)
+    protected function addActions(ConditionActionContract ...$actions)
     {
         foreach ($actions as $action) {
             $this->actions[] = $action;

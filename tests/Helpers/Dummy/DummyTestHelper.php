@@ -2,7 +2,7 @@
 
 namespace Tests\Helpers\Dummy;
 
-use ConditionalActions\Contracts\ActionContract;
+use ConditionalActions\Contracts\ConditionActionContract;
 use PHPUnit\Framework\Assert;
 
 trait DummyTestHelper
@@ -25,12 +25,12 @@ trait DummyTestHelper
         return $actions;
     }
 
-    protected function succeedCondition(?int $parentId = null, ActionContract ...$actions): DummyCondition
+    protected function succeedCondition(?int $parentId = null, ConditionActionContract ...$actions): DummyCondition
     {
         return DummySucceedCondition::withActions(++$this->id, $parentId, ...$actions);
     }
 
-    protected function failedCondition(?int $parentId = null, ActionContract ...$actions): DummyCondition
+    protected function failedCondition(?int $parentId = null, ConditionActionContract ...$actions): DummyCondition
     {
         return DummyFailedCondition::withActions(++$this->id, $parentId, ...$actions);
     }

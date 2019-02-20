@@ -8,7 +8,7 @@ use ConditionalActions\Contracts\TargetContract;
 class TrueCondition extends BaseCondition
 {
     /**
-     * Checks that the condition is met.
+     * Runs condition check.
      *
      * @param TargetContract $target
      * @param StateContract $state

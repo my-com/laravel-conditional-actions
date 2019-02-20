@@ -2,7 +2,7 @@
 
 namespace ConditionalActions\Entities\Eloquent;
 
-use ConditionalActions\Contracts\ActionContract;
+use ConditionalActions\Contracts\ConditionActionContract;
 use ConditionalActions\Exceptions\ConditionActionNotFoundException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
@@ -49,9 +49,9 @@ class ConditionAction extends Model
     /**
      * @throws \Throwable
      *
-     * @return ActionContract
+     * @return ConditionActionContract
      */
-    public function toAction(): ActionContract
+    public function toAction(): ConditionActionContract
     {
         $className = \config("conditional-actions.actions.{$this->name}");
 
@@ -62,7 +62,7 @@ class ConditionAction extends Model
             Response::HTTP_NOT_FOUND
         );
 
-        /** @var ActionContract $action */
+        /** @var ConditionActionContract $action */
         $action = \app($className);
 
         return $action->setParameters($this->parameters);

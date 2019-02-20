@@ -3,9 +3,9 @@
 namespace Tests\Helpers\Dummy;
 
 use ConditionalActions\Contracts\StateContract;
-use ConditionalActions\Entities\Actions\BaseAction;
+use ConditionalActions\Entities\Actions\BaseConditionAction;
 
-class Action extends BaseAction implements CanBeFired
+class Action extends BaseConditionAction implements CanBeFired
 {
     public $isFired = false;
 

@@ -4,7 +4,7 @@ namespace ConditionalActions\Entities\Actions;
 
 use ConditionalActions\Contracts\StateContract;
 
-class UpdateStateAttributeAction extends BaseAction
+class UpdateStateAttributeAction extends BaseConditionAction
 {
     public function apply(StateContract $state): StateContract
     {

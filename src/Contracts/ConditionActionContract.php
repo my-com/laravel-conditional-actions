@@ -2,9 +2,7 @@
 
 namespace ConditionalActions\Contracts;
 
-use ConditionalActions\Entities\Actions\BaseAction;
-
-interface ActionContract
+interface ConditionActionContract
 {
     /**
      * Applies action to the state and returns a new state.
@@ -20,7 +18,7 @@ interface ActionContract
      *
      * @param array $parameters
      *
-     * @return ActionContract
+     * @return ConditionActionContract
      */
     public function setParameters(?array $parameters): self;
 

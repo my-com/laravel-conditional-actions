@@ -2,7 +2,7 @@
 
 namespace Tests\Helpers\Dummy;
 
-use ConditionalActions\Contracts\ActionContract;
+use ConditionalActions\Contracts\ConditionActionContract;
 use ConditionalActions\Entities\Conditions\BaseCondition;
 
 abstract class DummyCondition extends BaseCondition implements CanBeFired
@@ -19,7 +19,7 @@ abstract class DummyCondition extends BaseCondition implements CanBeFired
         $this->parentId = $parentId;
     }
 
-    public static function withActions(int $id, ?int $parentId, ActionContract ...$actions): self
+    public static function withActions(int $id, ?int $parentId, ConditionActionContract ...$actions): self
     {
         return \tap(new static($id, $parentId), function (self $condition) use ($actions) {
             $condition->setActions($actions);
