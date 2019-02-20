@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Dummy;
+namespace Tests\Helpers\Dummy;
 
 use ConditionalActions\Contracts\ActionContract;
 use ConditionalActions\Entities\Conditions\BaseCondition;
 
-abstract class DummyCondition extends BaseCondition
+abstract class DummyCondition extends BaseCondition implements CanBeFired
 {
     /** @var int */
     protected $parentId;
@@ -13,13 +13,13 @@ abstract class DummyCondition extends BaseCondition
     /** @var bool */
     public $isFired = false;
 
-    public function __construct(int $id, int $parentId)
+    public function __construct(int $id, ?int $parentId)
     {
         $this->id = $id;
         $this->parentId = $parentId;
     }
 
-    public static function withActions(int $id, int $parentId, ActionContract ...$actions): self
+    public static function withActions(int $id, ?int $parentId, ActionContract ...$actions): self
     {
         return \tap(new static($id, $parentId), function (self $condition) use ($actions) {
             $condition->setActions($actions);
@@ -37,8 +37,16 @@ abstract class DummyCondition extends BaseCondition
     /**
      * @return int
      */
-    public function getParentId(): int
+    public function getParentId(): ?int
     {
         return $this->parentId;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFired(): bool
+    {
+        return $this->isFired;
     }
 }

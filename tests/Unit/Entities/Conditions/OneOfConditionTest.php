@@ -1,53 +1,52 @@
 <?php
 
-namespace Tests\Entities\Conditions;
+namespace Tests\Unit\Entities\Conditions;
 
 use ConditionalActions\Entities\Conditions\OneOfCondition;
-use Tests\Dummy\DummyAction;
+use Tests\Helpers\Dummy\Action;
 
 class OneOfConditionTest extends HasChildrenConditionsTestCase
 {
     protected function setUp()
     {
-        $this->testCondition = new OneOfCondition();
         parent::setUp();
+        $this->makeTestCondition(\app(OneOfCondition::class));
     }
 
     public function test_true_when_has_succeed_conditions()
     {
         $conditions = [
-            $this->failedChildrenCondition(new DummyAction()),
-            $this->succeedChildrenCondition(new DummyAction()),
-            $this->succeedChildrenCondition(new DummyAction()),
+            $this->failedChildrenCondition(new Action()),
+            $this->succeedChildrenCondition(new Action()),
+            $this->succeedChildrenCondition(new Action()),
         ];
         $this->target->addConditions(...$conditions);
 
         $result = $this->testCondition->check($this->target, $this->target->getState());
 
         $this->assertTrue($result);
-        $this->assertTrue($conditions[0]->isFired);
-        $this->assertTrue($conditions[1]->isFired);
-        $this->assertFalse($conditions[2]->isFired);
+        $this->assertFired($conditions[0]);
+        $this->assertFired($conditions[1]);
+        $this->assertNotFired($conditions[2]);
     }
 
     public function test_false_when_no_succeeds()
     {
         $conditions = [
-            $this->failedChildrenCondition(new DummyAction()),
-            $this->failedChildrenCondition(new DummyAction()),
+            $this->failedChildrenCondition(new Action()),
+            $this->failedChildrenCondition(new Action()),
         ];
         $this->target->addConditions(...$conditions);
 
         $result = $this->testCondition->check($this->target, $this->target->getState());
 
         $this->assertFalse($result);
-        $this->assertTrue($conditions[0]->isFired);
-        $this->assertTrue($conditions[1]->isFired);
+        $this->assertFired(...$conditions);
     }
 
     public function test_collect_actions_of_first_succeed_condition()
     {
-        $actions = [new DummyAction(), new DummyAction(), new DummyAction()];
+        $actions = $this->makeActions(3);
         $conditions = [
             $this->failedChildrenCondition($actions[0]),
             $this->succeedChildrenCondition($actions[1]),
@@ -66,8 +65,8 @@ class OneOfConditionTest extends HasChildrenConditionsTestCase
     public function test_dont_collect_actions_when_no_succeed_conditions()
     {
         $conditions = [
-            $this->failedChildrenCondition(new DummyAction()),
-            $this->failedChildrenCondition(new DummyAction()),
+            $this->failedChildrenCondition(new Action()),
+            $this->failedChildrenCondition(new Action()),
         ];
         $this->target->addConditions(...$conditions);
 
@@ -88,6 +87,6 @@ class OneOfConditionTest extends HasChildrenConditionsTestCase
         $result = $this->testCondition->check($this->target, $this->target->getState());
 
         $this->assertFalse($result);
-        $this->assertTrue($condition->isFired);
+        $this->assertFired($condition);
     }
 }

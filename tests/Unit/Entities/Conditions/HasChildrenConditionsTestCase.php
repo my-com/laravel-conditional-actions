@@ -1,14 +1,12 @@
 <?php
 
-namespace Tests\Entities\Conditions;
+namespace Tests\Unit\Entities\Conditions;
 
 use ConditionalActions\Contracts\ActionContract;
 use ConditionalActions\Contracts\ConditionContract;
-use Tests\Dummy\DummyAction;
-use Tests\Dummy\DummyCondition;
-use Tests\Dummy\DummyFailedCondition;
-use Tests\Dummy\DummySucceedCondition;
-use Tests\Dummy\DummyTarget;
+use Tests\Helpers\Dummy\Action;
+use Tests\Helpers\Dummy\DummyCondition;
+use Tests\Helpers\Dummy\DummyTarget;
 use Tests\TestCase;
 
 class HasChildrenConditionsTestCase extends TestCase
@@ -19,30 +17,28 @@ class HasChildrenConditionsTestCase extends TestCase
     /** @var DummyTarget */
     protected $target;
 
-    /** @var DummyAction */
+    /** @var Action */
     protected $action;
 
-    private $id = 5;
-
-    protected function setUp()
+    protected function makeTestCondition(ConditionContract $condition)
     {
-        parent::setUp();
-
         $this->target = new DummyTarget();
-        $this->action = new DummyAction();
+        $this->action = new Action();
 
+        $this->testCondition = $condition;
         $this->testCondition->setId(++$this->id);
         $this->testCondition->setActions([$this->action]);
 
         $this->target->addConditions($this->testCondition);
     }
+
     protected function succeedChildrenCondition(ActionContract ...$actions): DummyCondition
     {
-        return DummySucceedCondition::withActions(++$this->id, $this->testCondition->getId(), ...$actions);
+        return $this->succeedCondition($this->testCondition->getId(), ...$actions);
     }
 
     protected function failedChildrenCondition(ActionContract ...$actions): DummyCondition
     {
-        return DummyFailedCondition::withActions(++$this->id, $this->testCondition->getId(), ...$actions);
+        return $this->failedCondition($this->testCondition->getId(), ...$actions);
     }
 }

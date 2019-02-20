@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Entities\Actions;
+namespace Tests\Unit\Entities\Actions;
 
 use ConditionalActions\Entities\Actions\UpdateStateAttributeAction;
 use ConditionalActions\Entities\State;

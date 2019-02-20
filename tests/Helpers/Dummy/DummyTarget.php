@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Dummy;
+namespace Tests\Helpers\Dummy;
 
 use ConditionalActions\Contracts\ConditionContract;
 use ConditionalActions\Contracts\StateContract;
@@ -8,7 +8,7 @@ use ConditionalActions\Contracts\TargetContract;
 use ConditionalActions\Traits\RunsConditionalActions;
 use Illuminate\Support\Collection;
 
-class DummyTarget implements TargetContract
+class DummyTarget implements TargetContract, CanBeFired
 {
     use RunsConditionalActions;
 
@@ -17,6 +17,8 @@ class DummyTarget implements TargetContract
 
     /** @var Collection|ConditionContract[] */
     private $conditions;
+
+    private $isFired = false;
 
     public function __construct()
     {
@@ -40,6 +42,7 @@ class DummyTarget implements TargetContract
      */
     public function setState(StateContract $state): void
     {
+        $this->isFired = true;
         $this->state = $state;
     }
 
@@ -74,5 +77,10 @@ class DummyTarget implements TargetContract
         }
 
         return $this;
+    }
+
+    public function isFired(): bool
+    {
+        return $this->isFired;
     }
 }

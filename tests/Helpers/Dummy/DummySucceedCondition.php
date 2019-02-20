@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Dummy;
+namespace Tests\Helpers\Dummy;
 
 use ConditionalActions\Contracts\StateContract;
 use ConditionalActions\Contracts\TargetContract;

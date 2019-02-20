@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Dummy;
+namespace Tests\Helpers\Dummy;
 
 use ConditionalActions\Contracts\StateContract;
 use ConditionalActions\Entities\Actions\BaseAction;
 
-class DummyAction extends BaseAction
+class Action extends BaseAction implements CanBeFired
 {
     public $isFired = false;
 
@@ -21,5 +21,10 @@ class DummyAction extends BaseAction
         $this->isFired = true;
 
         return $state;
+    }
+
+    public function isFired(): bool
+    {
+        return $this->isFired;
     }
 }
