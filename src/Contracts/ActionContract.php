@@ -2,6 +2,8 @@
 
 namespace ConditionalActions\Contracts;
 
+use ConditionalActions\Entities\Actions\BaseAction;
+
 interface ActionContract
 {
     /**
@@ -21,4 +23,11 @@ interface ActionContract
      * @return ActionContract
      */
     public function setParameters(?array $parameters): self;
+
+    /**
+     * Gets action parameters.
+     *
+     * @return array
+     */
+    public function getParameters(): array;
 }

@@ -3,6 +3,7 @@
 namespace Tests\Feature\Entities\Eloquent;
 
 use ConditionalActions\Contracts\ConditionContract;
+use ConditionalActions\Entities\Conditions\TrueCondition;
 use ConditionalActions\Entities\Eloquent\Condition;
 use ConditionalActions\Entities\Eloquent\ConditionAction;
 use ConditionalActions\Exceptions\ConditionNotFoundException;
@@ -64,12 +65,12 @@ class ConditionTest extends EloquentTestCase
 
         $this->expectException(ConditionNotFoundException::class);
         $this->expectExceptionCode(Response::HTTP_NOT_FOUND);
-        $this->expectExceptionMessage('Condition Exists not found');
+        $this->expectExceptionMessage('Condition NotExists not found');
 
         $condition->toCondition();
     }
 
-    public function test_to_response_make_correct_condition()
+    public function test_to_condition_make_correct_condition()
     {
         /** @var Condition $condition */
         $condition = \factory(Condition::class)->create([
@@ -83,14 +84,14 @@ class ConditionTest extends EloquentTestCase
 
         $actualCondition = $condition->toCondition();
 
-        $this->assertInstanceOf(ConditionContract::class, $actualCondition);
+        $this->assertInstanceOf(TrueCondition::class, $actualCondition);
         $this->assertEquals($condition->id, $actualCondition->getId());
         $this->assertEquals($condition->is_inverted, $actualCondition->isInverted());
         $this->assertEquals($condition->parameters, $actualCondition->getParameters());
         $this->assertEquals([$action->toAction()], \iterator_to_array($actualCondition->getActions()));
     }
 
-    public function test_get_active_actions_filters_not_active()
+    public function test_get_active_actions_filtered_not_active()
     {
         /** @var Condition $condition */
         $condition = \factory(Condition::class)->create();
@@ -104,7 +105,7 @@ class ConditionTest extends EloquentTestCase
         $this->assertEquals([$activeAction->id], $actions->pluck('id')->toArray());
     }
 
-    public function test_get_active_actions_sort_by_priority()
+    public function test_get_active_actions_sorted_by_priority()
     {
         /** @var Condition $condition */
         $condition = \factory(Condition::class)->create();

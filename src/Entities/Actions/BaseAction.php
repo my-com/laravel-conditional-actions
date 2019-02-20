@@ -21,4 +21,14 @@ abstract class BaseAction implements ActionContract
 
         return $this;
     }
+
+    /**
+     * Gets action parameters.
+     *
+     * @return array
+     */
+    public function getParameters(): array
+    {
+        return $this->parameters;
+    }
 }

@@ -4,7 +4,6 @@ namespace ConditionalActions\Entities\Eloquent;
 
 use ConditionalActions\Contracts\ActionContract;
 use ConditionalActions\Exceptions\ConditionActionNotFoundException;
-use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
@@ -52,17 +51,17 @@ class ConditionAction extends Model
      */
     public function toAction(): ActionContract
     {
-        $className = Container::getInstance()->make('config')->get("conditional-actions.actions.{$this->name}");
+        $className = \config("conditional-actions.actions.{$this->name}");
 
         \throw_unless(
             $className,
             ConditionActionNotFoundException::class,
-            \sprintf('Condition %s not found', $this->name),
+            \sprintf('Action %s not found', $this->name),
             Response::HTTP_NOT_FOUND
         );
 
         /** @var ActionContract $action */
-        $action = Container::getInstance()->make($className);
+        $action = \app($className);
 
         return $action->setParameters($this->parameters);
     }
