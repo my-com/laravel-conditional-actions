@@ -4,7 +4,6 @@ namespace ConditionalActions\Entities\Eloquent;
 
 use ConditionalActions\Contracts\ConditionContract;
 use ConditionalActions\Exceptions\ConditionNotFoundException;
-use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Response;

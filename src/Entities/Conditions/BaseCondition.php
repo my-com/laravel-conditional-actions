@@ -25,7 +25,7 @@ abstract class BaseCondition implements ConditionContract
     protected $parentId;
 
     /**
-     * Checks that the condition is met.
+     * Runs condition check.
      *
      * @param TargetContract $target
      * @param StateContract $state
@@ -35,6 +35,8 @@ abstract class BaseCondition implements ConditionContract
     abstract public function check(TargetContract $target, StateContract $state): bool;
 
     /**
+     * Sets condition identifier.
+     *
      * @param int $id
      *
      * @return ConditionContract
@@ -47,6 +49,8 @@ abstract class BaseCondition implements ConditionContract
     }
 
     /**
+     * Gets condition identifier.
+     *
      * @return int
      */
     public function getId(): int
@@ -55,6 +59,8 @@ abstract class BaseCondition implements ConditionContract
     }
 
     /**
+     * Sets parent identifier.
+     *
      * @param int|null $parentId
      *
      * @return ConditionContract
@@ -67,6 +73,8 @@ abstract class BaseCondition implements ConditionContract
     }
 
     /**
+     * Gets parent identifier.
+     *
      * @return int|null
      */
     public function getParentId(): ?int
@@ -75,6 +83,8 @@ abstract class BaseCondition implements ConditionContract
     }
 
     /**
+     * Sets inverted flag.
+     *
      * @param bool|null $isInverted
      *
      * @return ConditionContract
@@ -97,6 +107,8 @@ abstract class BaseCondition implements ConditionContract
     }
 
     /**
+     * Sets actions.
+     *
      * @param iterable|null $actions
      *
      * @return ConditionContract
@@ -106,6 +118,16 @@ abstract class BaseCondition implements ConditionContract
         $this->actions = $actions ?? [];
 
         return $this;
+    }
+
+    /**
+     * Gets the condition actions.
+     *
+     * @return iterable|ActionContract[]
+     */
+    public function getActions(): iterable
+    {
+        return $this->actions;
     }
 
     /**
@@ -121,16 +143,8 @@ abstract class BaseCondition implements ConditionContract
     }
 
     /**
-     * Gets the actions for the condition.
+     * Sets the condition parameters.
      *
-     * @return iterable|ActionContract[]
-     */
-    public function getActions(): iterable
-    {
-        return $this->actions;
-    }
-
-    /**
      * @param array $parameters
      *
      * @return ConditionContract
@@ -140,6 +154,16 @@ abstract class BaseCondition implements ConditionContract
         $this->parameters = $parameters ?? [];
 
         return $this;
+    }
+
+    /**
+     * Gets condition parameters.
+     *
+     * @return iterable
+     */
+    public function getParameters(): iterable
+    {
+        return $this->parameters;
     }
 
     protected function expectedResult(): bool

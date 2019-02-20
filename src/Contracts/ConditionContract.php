@@ -15,6 +15,8 @@ interface ConditionContract
     public function check(TargetContract $target, StateContract $state): bool;
 
     /**
+     * Sets actions.
+     *
      * @param iterable|null $actions
      *
      * @return ConditionContract
@@ -45,6 +47,8 @@ interface ConditionContract
     public function getId(): int;
 
     /**
+     * Sets inverted flag.
+     *
      * @param bool|null $isInverted
      *
      * @return ConditionContract
@@ -59,6 +63,8 @@ interface ConditionContract
     public function isInverted(): bool;
 
     /**
+     * Sets the condition parameters.
+     *
      * @param array|null $parameters
      *
      * @return ConditionContract
@@ -66,14 +72,25 @@ interface ConditionContract
     public function setParameters(?array $parameters): self;
 
     /**
+     * Gets parent identifier.
+     *
      * @return int|null
      */
     public function getParentId(): ?int;
 
     /**
+     * Sets parent identifier.
+     *
      * @param int|null $parentId
      *
      * @return ConditionContract
      */
     public function setParentId(?int $parentId): self;
+
+    /**
+     * Gets condition parameters.
+     *
+     * @return iterable
+     */
+    public function getParameters(): iterable;
 }

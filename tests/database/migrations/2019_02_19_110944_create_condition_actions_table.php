@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Create{{tableClassName}}Table extends Migration
+class CreateConditionActionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,15 @@ class Create{{tableClassName}}Table extends Migration
      */
     public function up()
     {
-        Schema::create('{{table}}', function (Blueprint $table) {
+        Schema::create('condition_actions', function (Blueprint $table) {
             $table->increments('id');
-            $table->nullableMorphs('target');
+            $table->unsignedInteger('condition_id');
             $table->string('name');
             $table->json('parameters')->nullable();
-            $table->boolean('is_inverted')->default(false);
             $table->integer('priority')->default(0);
-            $table->unsignedInteger('parent_id')->nullable();
             $table->timestamp('starts_at')->nullable();
             $table->timestamp('ends_at')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -35,6 +32,6 @@ class Create{{tableClassName}}Table extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('{{table}}');
+        Schema::dropIfExists('condition_actions');
     }
 }
