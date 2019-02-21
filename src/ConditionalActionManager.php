@@ -6,7 +6,7 @@ use ConditionalActions\Contracts\StateContract;
 use ConditionalActions\Contracts\TargetContract;
 use Psr\Log\LoggerInterface;
 
-class ConditionActionManager
+class ConditionalActionManager
 {
     /** @var LoggerInterface */
     private $logger;

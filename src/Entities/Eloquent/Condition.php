@@ -24,7 +24,7 @@ use Illuminate\Support\Collection;
  * @property Carbon|null created_at
  * @property Carbon|null updated_at
  * @property Carbon|null deleted_at
- * @property Collection|ConditionAction[] conditionActions
+ * @property Collection|Action[] $actions
  */
 class Condition extends Model
 {
@@ -50,9 +50,9 @@ class Condition extends Model
         'target_id' => 'int',
     ];
 
-    public function conditionActions(): HasMany
+    public function actions(): HasMany
     {
-        return $this->hasMany(ConditionAction::class);
+        return $this->hasMany(Action::class);
     }
 
     public function childrenConditions(): HasMany
@@ -88,7 +88,7 @@ class Condition extends Model
         $condition = \app($className);
 
         return $condition->setId($this->id)
-            ->setActions($this->getActiveActions()->map(function (ConditionAction $action) {
+            ->setActions($this->getActiveActions()->map(function (Action $action) {
                 return $action->toAction();
             }))
             ->setIsInverted($this->is_inverted)
@@ -96,12 +96,12 @@ class Condition extends Model
     }
 
     /**
-     * @return ConditionAction[]|Collection
+     * @return Action[]|Collection
      */
     public function getActiveActions()
     {
-        return $this->conditionActions
-            ->filter(function (ConditionAction $action) {
+        return $this->actions
+            ->filter(function (Action $action) {
                 return $action->isActive();
             })
             ->sortBy('priority')

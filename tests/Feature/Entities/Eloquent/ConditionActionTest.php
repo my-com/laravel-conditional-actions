@@ -3,8 +3,8 @@
 namespace Tests\Feature\Entities\Eloquent;
 
 use ConditionalActions\Entities\Actions\UpdateStateAttributeAction;
-use ConditionalActions\Entities\Eloquent\ConditionAction;
-use ConditionalActions\Exceptions\ConditionActionNotFoundException;
+use ConditionalActions\Entities\Eloquent\Action;
+use ConditionalActions\Exceptions\ActionNotFoundException;
 use Illuminate\Support\Carbon;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\EloquentTestCase;
@@ -29,8 +29,8 @@ class ConditionActionTest extends EloquentTestCase
      */
     public function test_is_active(bool $isActive, $startsAt, $endsAt)
     {
-        /** @var ConditionAction $action */
-        $action = \create(ConditionAction::class, [
+        /** @var Action $action */
+        $action = \create(Action::class, [
             'starts_at' => $startsAt,
             'ends_at' => $endsAt,
         ]);
@@ -58,10 +58,10 @@ class ConditionActionTest extends EloquentTestCase
 
     public function test_to_action_exception_when_action_not_exists()
     {
-        /** @var ConditionAction $action */
-        $action = \create(ConditionAction::class, ['name' => 'NotExists']);
+        /** @var Action $action */
+        $action = \create(Action::class, ['name' => 'NotExists']);
 
-        $this->expectException(ConditionActionNotFoundException::class);
+        $this->expectException(ActionNotFoundException::class);
         $this->expectExceptionCode(Response::HTTP_NOT_FOUND);
         $this->expectExceptionMessage('Action NotExists not found');
 
@@ -70,8 +70,8 @@ class ConditionActionTest extends EloquentTestCase
 
     public function test_to_action_make_correct_action()
     {
-        /** @var ConditionAction $action */
-        $action = \create(ConditionAction::class, [
+        /** @var Action $action */
+        $action = \create(Action::class, [
             'name' => 'UpdateStateAttribute',
             'parameters' => ['one' => 'first'],
         ]);

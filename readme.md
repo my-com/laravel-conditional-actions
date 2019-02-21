@@ -36,14 +36,14 @@ Action:
 
 For time restrictions (Promotion starts at 2019/05/01 00:00 and finishes at 2019/05/01 23:59) you can use fields `starts_at` and `ends_at`.
 
-Both conditions must be succeeded. You can use `AllOf` condition from package.
+Both conditions must be succeeded. You can use `AllOfCondition` condition from package.
 
 Marketing can use it for promotions without change you code.
 
 The final scheme for promotion:
 
 ```
-■ AllOf (condition)
+■ AllOfCondition (condition)
 │ # fields: ['id' => 1, 'starts_at' => '2019-05-01 00:00:00', 'ends_at' => '2019-05-01 23:59:59']
 │    ║
 │    ╚═» ░ DiscountAction (action)
@@ -246,11 +246,11 @@ class TodayIsBirthdayCondition extends BaseCondition
 
 ### Implement action
 
-Each conditions must implement `ConditionalActions\Contracts\ConditionActionContract` contract.
-The package have base abstract class `ConditionalActions\Entities\Actions\BaseConditionAction` with all contract methods except the `apply` method.
+Each conditions must implement `ConditionalActions\Contracts\ActionContract` contract.
+The package have base abstract class `ConditionalActions\Entities\Actions\BaseAction` with all contract methods except the `apply` method.
 
 ```php
-class DiscountAction extends BaseConditionAction
+class DiscountAction extends BasenAction
 {
     /**
      * Applies action to the state and returns a new state.
@@ -276,9 +276,9 @@ class DiscountAction extends BaseConditionAction
 
 return [
     'conditions' => [
-        'AllOf' => ConditionalActions\Entities\Conditions\AllOfCondition::class,
-        'OneOf' => ConditionalActions\Entities\Conditions\OneOfCondition::class,
-        'True' => ConditionalActions\Entities\Conditions\TrueCondition::class,
+        'AllOfCondition' => ConditionalActions\Entities\Conditions\AllOfCondition::class,
+        'OneOfCondition' => ConditionalActions\Entities\Conditions\OneOfCondition::class,
+        'TrueCondition' => ConditionalActions\Entities\Conditions\TrueCondition::class,
 
         'CurrentTimeCondition' => App\ConditionalActions\Conditions\CurrentTimeCondition::class,
         'HasPaidToysCondition' => App\ConditionalActions\Conditions\HasPaidToysCondition::class,
@@ -307,6 +307,11 @@ $toy = Toy::find(10);
 $allOf = $toy->conditions()->create([
     'starts_at' => '2019-05-01 00:00:00',
     'ends_at' => '2019-05-01 23:59:59',
+]);
+
+$allOf->actions()->create([
+    'name' => 'DiscountAction',
+    'parameters' => ['discount' => 10],
 ]);
 
 $todayIsBirthday = $allOf->childrenConditions()->make([
@@ -340,9 +345,9 @@ dump($target->finalPrice);
 
 The package includes conditions and actions:
 
-* Condition `AllOf` - succeeded when **all** children conditions is succeeded. All children actions will included to parent `AllOf` condition;
-* Condition `OneOf` - succeeded when **any of** children conditions is succeeded. All children actions for succeeded condition will included to parent `OneOf` condition; 
-* Condition `True` - always succeeded;
+* Condition `AllOfCondition` - succeeded when **all** children conditions is succeeded. All children actions will included to parent `AllOfCondition` condition;
+* Condition `OneOfCondition` - succeeded when **any of** children conditions is succeeded. All children actions for succeeded condition will included to parent `OneOfCondition` condition; 
+* Condition `TrueCondition` - always succeeded;
 * Action `UpdateStateAttribute` - Updates an attribute value in the state.
 
 Both conditions and actions has fields:

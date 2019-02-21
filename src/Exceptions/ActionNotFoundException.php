@@ -4,6 +4,6 @@ namespace ConditionalActions\Exceptions;
 
 use Exception;
 
-class ConditionActionNotFoundException extends Exception
+class ActionNotFoundException extends Exception
 {
 }

@@ -2,8 +2,8 @@
 
 namespace ConditionalActions\Entities\Eloquent;
 
-use ConditionalActions\Contracts\ConditionActionContract;
-use ConditionalActions\Exceptions\ConditionActionNotFoundException;
+use ConditionalActions\Contracts\ActionContract;
+use ConditionalActions\Exceptions\ActionNotFoundException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
@@ -19,8 +19,10 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null created_at
  * @property Carbon|null updated_at
  */
-class ConditionAction extends Model
+class Action extends Model
 {
+    protected $table = 'condition_actions';
+
     protected $fillable = [
         'condition_id',
         'name',
@@ -49,20 +51,20 @@ class ConditionAction extends Model
     /**
      * @throws \Throwable
      *
-     * @return ConditionActionContract
+     * @return ActionContract
      */
-    public function toAction(): ConditionActionContract
+    public function toAction(): ActionContract
     {
         $className = \config("conditional-actions.actions.{$this->name}");
 
         \throw_unless(
             $className,
-            ConditionActionNotFoundException::class,
+            ActionNotFoundException::class,
             \sprintf('Action %s not found', $this->name),
             Response::HTTP_NOT_FOUND
         );
 
-        /** @var ConditionActionContract $action */
+        /** @var ActionContract $action */
         $action = \app($className);
 
         return $action->setParameters($this->parameters);

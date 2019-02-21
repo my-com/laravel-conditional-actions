@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Entities\Conditions;
 
-use ConditionalActions\Contracts\ConditionActionContract;
+use ConditionalActions\Contracts\ActionContract;
 use ConditionalActions\Contracts\ConditionContract;
 use Tests\Helpers\Dummy\Action;
 use Tests\Helpers\Dummy\DummyCondition;
@@ -32,12 +32,12 @@ class HasChildrenConditionsTestCase extends TestCase
         $this->target->addConditions($this->testCondition);
     }
 
-    protected function succeedChildrenCondition(ConditionActionContract ...$actions): DummyCondition
+    protected function succeedChildrenCondition(ActionContract ...$actions): DummyCondition
     {
         return $this->succeedCondition($this->testCondition->getId(), ...$actions);
     }
 
-    protected function failedChildrenCondition(ConditionActionContract ...$actions): DummyCondition
+    protected function failedChildrenCondition(ActionContract ...$actions): DummyCondition
     {
         return $this->failedCondition($this->testCondition->getId(), ...$actions);
     }

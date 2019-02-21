@@ -2,7 +2,7 @@
 
 namespace ConditionalActions\Traits;
 
-use ConditionalActions\ConditionActionManager;
+use ConditionalActions\ConditionalActionManager;
 use ConditionalActions\Contracts\StateContract;
 use ConditionalActions\Contracts\TargetContract;
 use ConditionalActions\Entities\State;
@@ -30,8 +30,8 @@ trait RunsConditionalActions
 
     public function runConditionalActions()
     {
-        /** @var ConditionActionManager $manager */
-        $manager = \app(ConditionActionManager::class);
+        /** @var ConditionalActionManager $manager */
+        $manager = \app(ConditionalActionManager::class);
         $manager->useLogger = $this->useLogger;
         $manager->run($this, $this->getState());
     }

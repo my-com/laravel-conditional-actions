@@ -6,7 +6,7 @@ use Illuminate\Support\Carbon;
 
 $factory->define(Condition::class, function (Generator $faker) {
     return [
-        'name' => 'True',
+        'name' => 'TrueCondition',
     ];
 });
 

@@ -2,14 +2,14 @@
 
 namespace Tests\Unit;
 
-use ConditionalActions\ConditionActionManager;
+use ConditionalActions\ConditionalActionManager;
 use Tests\Helpers\Dummy\Action;
 use Tests\Helpers\Dummy\DummyTarget;
 use Tests\TestCase;
 
 class ConditionActionManagerTest extends TestCase
 {
-    /** @var ConditionActionManager */
+    /** @var ConditionalActionManager */
     private $manager;
 
     /** @var DummyTarget */
@@ -18,7 +18,7 @@ class ConditionActionManagerTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->manager = \app(ConditionActionManager::class);
+        $this->manager = \app(ConditionalActionManager::class);
         $this->target = new DummyTarget();
     }
 

@@ -4,7 +4,7 @@ namespace Tests\Feature\Entities\Eloquent;
 
 use ConditionalActions\Entities\Conditions\TrueCondition;
 use ConditionalActions\Entities\Eloquent\Condition;
-use ConditionalActions\Entities\Eloquent\ConditionAction;
+use ConditionalActions\Entities\Eloquent\Action;
 use ConditionalActions\Exceptions\ConditionNotFoundException;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
@@ -73,13 +73,13 @@ class ConditionTest extends EloquentTestCase
     {
         /** @var Condition $condition */
         $condition = \create(Condition::class, [
-            'name' => 'True',
+            'name' => 'TrueCondition',
             'is_inverted' => true,
             'parameters' => ['one' => 'first'],
         ]);
-        /** @var ConditionAction $action */
-        $action = \create(ConditionAction::class);
-        $condition->conditionActions()->save($action);
+        /** @var Action $action */
+        $action = \create(Action::class);
+        $condition->actions()->save($action);
 
         $actualCondition = $condition->toCondition();
 
@@ -94,10 +94,10 @@ class ConditionTest extends EloquentTestCase
     {
         /** @var Condition $condition */
         $condition = \create(Condition::class);
-        /** @var ConditionAction $action */
-        $activeAction = \create(ConditionAction::class);
-        $inactiveAction = \create(ConditionAction::class, ['ends_at' => Carbon::yesterday()]);
-        $condition->conditionActions()->saveMany([$activeAction, $inactiveAction]);
+        /** @var Action $action */
+        $activeAction = \create(Action::class);
+        $inactiveAction = \create(Action::class, ['ends_at' => Carbon::yesterday()]);
+        $condition->actions()->saveMany([$activeAction, $inactiveAction]);
 
         $actions = $condition->getActiveActions();
 
@@ -108,8 +108,8 @@ class ConditionTest extends EloquentTestCase
     {
         /** @var Condition $condition */
         $condition = \create(Condition::class);
-        [$action10, $action5, $action20] = \createMany(ConditionAction::class, ['priority'], [[10], [5], [20]]);
-        $condition->conditionActions()->saveMany([$action10, $action5, $action20]);
+        [$action10, $action5, $action20] = \createMany(Action::class, ['priority'], [[10], [5], [20]]);
+        $condition->actions()->saveMany([$action10, $action5, $action20]);
 
         $actions = $condition->getActiveActions();
 

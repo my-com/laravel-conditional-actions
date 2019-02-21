@@ -2,9 +2,9 @@
 
 namespace ConditionalActions\Entities\Actions;
 
-use ConditionalActions\Contracts\ConditionActionContract;
+use ConditionalActions\Contracts\ActionContract;
 
-abstract class BaseConditionAction implements ConditionActionContract
+abstract class BaseAction implements ActionContract
 {
     protected $parameters = [];
 
@@ -13,9 +13,9 @@ abstract class BaseConditionAction implements ConditionActionContract
      *
      * @param array $parameters
      *
-     * @return ConditionActionContract
+     * @return ActionContract
      */
-    public function setParameters(?array $parameters): ConditionActionContract
+    public function setParameters(?array $parameters): ActionContract
     {
         $this->parameters = $parameters ?? [];
 

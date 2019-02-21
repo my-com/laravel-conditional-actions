@@ -26,7 +26,7 @@ interface ConditionContract
     /**
      * Gets the actions for the condition.
      *
-     * @return iterable|ConditionActionContract[]
+     * @return iterable|ActionContract[]
      */
     public function getActions(): iterable;
 
