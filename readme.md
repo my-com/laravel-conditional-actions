@@ -21,21 +21,40 @@ Lifecycle:
 
 ## Get started
 
-For example, you have a shop that sells toys. You marketing runs some promotions for specific toys.
-For example, if user buys chests in the past or today is his birthday, "Barbie doll" must have an discount.
+For example, you have a shop that sells toys. Your marketing runs some promotions for specific toys.
+If user buys chests in the past or today is his birthday, "Barbie doll" must have an 10% discount.
 Promotion starts at 2019/05/01 00:00 and finishes at 2019/05/01 23:59.
 
 You should create:
 
 Conditions:
-* Promotion starts at 2019/05/01 00:00 and finishes at 2019/05/01 23:59 (`CurrentTimeCondition`)
 * User buys toys in the past (`HasPaidToysCondition`)
 * Today is his birthday (`TodayIsBirthdayCondition`)
 
 Action:
 * "Barbie doll" should have an discount (`DiscountAction`)
 
+For time restrictions (Promotion starts at 2019/05/01 00:00 and finishes at 2019/05/01 23:59) you can use fields `starts_at` and `ends_at`.
+
+Both conditions must be succeeded. You can use `AllOf` condition from package.
+
 Marketing can use it for promotions without change you code.
+
+The final scheme for promotion:
+
+```
+■ AllOf (condition)
+│ # fields: ['id' => 1, 'starts_at' => '2019-05-01 00:00:00', 'ends_at' => '2019-05-01 23:59:59']
+│    ║
+│    ╚═» ░ DiscountAction (action)
+│          # fields: ['parameters' => ['discount' => 10]]
+│
+├─── ■ TodayIsBirthdayCondition (condition)
+│      # fields: ['parent_id' => 1]
+│
+└─── ■ HasPaidToysCondition (condition)
+       # fields: ['parent_id' => 1, 'parameters' => ['toy_id' => 5]]
+```
 
 Let`s go to implement it!
 
@@ -162,30 +181,6 @@ Each conditions must implement `ConditionalActions\Contracts\ConditionContract` 
 The package have base abstract class `ConditionalActions\Entities\Conditions\BaseCondition` with all contract methods except the `check` method.
 
 ```php
-class CurrentTimeCondition extends BaseCondition
-{
-    /**
-     * Runs condition check.
-     *
-     * @param TargetContract $target
-     * @param StateContract $state
-     *
-     * @return bool
-     */
-    public function check(TargetContract $target, StateContract $state): bool
-    {
-        $startsAt = $this->parameters['starts_at'] ?? null;
-        $finishesAt = $this->parameters['finishes_at'] ?? null;
-
-        return Carbon::now()->between(
-            $startsAt ?? Carbon::minValue(),
-            $finishesAt ?? Carbon::maxValue()
-        );
-    }
-}
-```
-
-```php
 class HasPaidToysCondition extends BaseCondition
 {
     /** @var ToysService */
@@ -300,7 +295,31 @@ return [
 
 ### Implement API for adds conditions and actions for `Toy` model
 
-TODO
+You can use eloquent models or any other objects to put business logic to external storage.
+
+```php
+# This example is not an API. You can create API as you needed.
+
+/** @var Toy $toy */
+$toy = Toy::find(10);
+
+/** @var Condition $allOf */
+$allOf = $toy->conditions()->create([
+    'starts_at' => '2019-05-01 00:00:00',
+    'ends_at' => '2019-05-01 23:59:59',
+]);
+
+$todayIsBirthday = $allOf->childrenConditions()->make([
+    'name' => 'TodayIsBirthdayCondition',
+]);
+
+$hasPaidToy = $allOf->childrenConditions()->make([
+    'name' => 'HasPaidToysCondition',
+    'parameters' => ['toy_id' => 5],
+]);
+
+$toy->conditions()->saveMany([$allOf, $hasPaidToy, $todayIsBirthday]);
+```
 
 ### Run conditional actions
 
@@ -321,13 +340,13 @@ dump($target->finalPrice);
 
 The package includes conditions and actions:
 
-* Condition `AllOf` - run condition actions (and actions for children conditions) when **all** children conditions is succeeded;
-* Condition `OneOf` - run condition actions (and actions for first succeeded children condition) when **any of** children conditions is succeeded; 
-* Condition `True` - always runs actions;
-* Action `UpdateStateAttribute` - Updates an attribute value to the state.
+* Condition `AllOf` - succeeded when **all** children conditions is succeeded. All children actions will included to parent `AllOf` condition;
+* Condition `OneOf` - succeeded when **any of** children conditions is succeeded. All children actions for succeeded condition will included to parent `OneOf` condition; 
+* Condition `True` - always succeeded;
+* Action `UpdateStateAttribute` - Updates an attribute value in the state.
 
 Both conditions and actions has fields:
-* `priority` - run order;
-* nullable `starts_at` and `ends_at` - enable or disable its based on current time;
+* `priority` - execution priority;
+* nullable `starts_at` and `ends_at` - enables condition or action at specific time period;
 * `parameters` - parameters of conditions or actions;
-* `is_inverted` - Determines whether the condition result should be inverted.
+* `is_inverted` - determines whether the condition result should be inverted.
