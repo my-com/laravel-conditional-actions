@@ -6,6 +6,7 @@ use ConditionalActions\Contracts\ConditionContract;
 use ConditionalActions\Exceptions\ConditionNotFoundException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
@@ -28,6 +29,8 @@ use Illuminate\Support\Collection;
  */
 class Condition extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'target_type',
         'target_id',
