@@ -5,7 +5,7 @@ This is helpful when you don`t know specific conditions because it defined dynam
 
 ## How it works
 
-Codebase provide predefined conditions, actions, targets and API for mix it into business logic to end users.
+Codebase provides predefined conditions, actions, targets and API for mix it into business logic to end users.
 Objects:
 * `Target` - provides all necessary data for conditions and actions;
 * `State` - key-value pairs. Actions should update state when applying;
@@ -17,7 +17,7 @@ Lifecycle:
 * `Target` gets all related active `Condition` sorted by priority and run check on each condition;
 * For succeeded `Condition`, `Condition` gets all related actions and apply it to `State`;
 * `Action` return changed `State` which uses in next conditions or actions;
-* After checking all `Condition`, `Target` gets new `State` to `setState` method. You can use it state as you needed.
+* After checking all `Condition`, `Target` gets new `State` to `applyState` method. You can use it state as you needed.
 
 ## Get started
 
@@ -106,9 +106,9 @@ php artisan vendor:publish --provider="ConditionalActions\ConditionalActionsServ
 
 ### Implement Target
 
-Target is object that provide all necessary data for conditions and actions. It can be also an eloquent model.
+Target is object that provides all necessary data for conditions and actions. It can be also an eloquent model.
 
-Since `Toy` - object for conditional actions, he should use `EloquentTarget` trait (trait has relationships and some method to get conditions for model)
+Since `Toy` - object for conditional actions, it should use `EloquentTarget` trait (trait has relationships and some method to get conditions for model)
 
 ```php
 class ToysPriceTarget implements TargetContract
@@ -120,7 +120,7 @@ class ToysPriceTarget implements TargetContract
 
     /** @var User */
     public $user;
-    
+
     public $finalPrice;
 
     public function __construct(Toy $toy, User $user)
@@ -134,7 +134,7 @@ class ToysPriceTarget implements TargetContract
      *
      * @return StateContract
      */
-    public function getState(): StateContract
+    public function getInitialState(): StateContract
     {
         return $this->newState([
             'price' => $this->toy->price,
@@ -146,7 +146,7 @@ class ToysPriceTarget implements TargetContract
      *
      * @param StateContract $state
      */
-    public function setState(StateContract $state): void
+    public function applyState(StateContract $state): void
     {
         $this->finalPrice = $state->getAttribute('price');
     }
@@ -337,8 +337,8 @@ $target = new ToysPriceTarget(Auth::user(), $toy);
  * Run conditional actions.
  * This method will iterate over all its conditions stored in database and apply actions related to succeed conditions
  */
-$target->runConditionalActions();
-dump($target->finalPrice);
+$newState = $target->runConditionalActions();
+dump($newState->getAttribute('price'));
 ```
 
 ## P.S.
@@ -346,7 +346,7 @@ dump($target->finalPrice);
 The package includes conditions and actions:
 
 * Condition `AllOfCondition` - succeeded when **all** children conditions is succeeded. All children actions will included to parent `AllOfCondition` condition;
-* Condition `OneOfCondition` - succeeded when **any of** children conditions is succeeded. All children actions for succeeded condition will included to parent `OneOfCondition` condition; 
+* Condition `OneOfCondition` - succeeded when **any of** children conditions is succeeded. All children actions for **first** succeeded condition will included to parent `OneOfCondition` condition; 
 * Condition `TrueCondition` - always succeeded;
 * Action `UpdateStateAttribute` - Updates an attribute value in the state.
 

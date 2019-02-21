@@ -42,7 +42,7 @@ class ConditionalActionManager
             }
         }
 
-        $target->setState($state);
+        $target->applyState($state);
         $this->log(\sprintf('Finish state: %s', \json_encode($state->toArray())));
 
         return $state;

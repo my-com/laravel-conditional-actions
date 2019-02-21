@@ -30,7 +30,7 @@ class DummyTarget implements TargetContract, CanBeFired
      *
      * @return StateContract
      */
-    public function getState(): StateContract
+    public function getInitialState(): StateContract
     {
         return $this->newState([]);
     }
@@ -40,7 +40,7 @@ class DummyTarget implements TargetContract, CanBeFired
      *
      * @param StateContract $state
      */
-    public function setState(StateContract $state): void
+    public function applyState(StateContract $state): void
     {
         $this->isFired = true;
         $this->state = $state;

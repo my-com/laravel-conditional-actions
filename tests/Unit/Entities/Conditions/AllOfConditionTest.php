@@ -24,7 +24,7 @@ class AllOfConditionTest extends HasChildrenConditionsTestCase
         ];
         $this->target->addConditions(...$conditions);
 
-        $result = $this->testCondition->check($this->target, $this->target->getState());
+        $result = $this->testCondition->check($this->target, $this->target->getInitialState());
 
         $this->assertTrue($result);
         $this->assertFired(...$conditions);
@@ -40,7 +40,7 @@ class AllOfConditionTest extends HasChildrenConditionsTestCase
         ];
         $this->target->addConditions(...$conditions);
 
-        $result = $this->testCondition->check($this->target, $this->target->getState());
+        $result = $this->testCondition->check($this->target, $this->target->getInitialState());
 
         $this->assertFalse($result);
 
@@ -59,7 +59,7 @@ class AllOfConditionTest extends HasChildrenConditionsTestCase
         ];
         $this->target->addConditions(...$conditions);
 
-        $result = $this->testCondition->check($this->target, $this->target->getState());
+        $result = $this->testCondition->check($this->target, $this->target->getInitialState());
 
         $this->assertTrue($result);
         $this->assertEquals([$this->action, $action1], $this->testCondition->getActions());
@@ -75,7 +75,7 @@ class AllOfConditionTest extends HasChildrenConditionsTestCase
         ];
         $this->target->addConditions(...$conditions);
 
-        $result = $this->testCondition->check($this->target, $this->target->getState());
+        $result = $this->testCondition->check($this->target, $this->target->getInitialState());
 
         $this->assertFalse($result);
         $this->assertEquals([$this->action], $this->testCondition->getActions());
@@ -87,7 +87,7 @@ class AllOfConditionTest extends HasChildrenConditionsTestCase
         $condition->setIsInverted(true);
         $this->target->addConditions($condition);
 
-        $result = $this->testCondition->check($this->target, $this->target->getState());
+        $result = $this->testCondition->check($this->target, $this->target->getInitialState());
 
         $this->assertFalse($result);
         $this->assertFired($condition);

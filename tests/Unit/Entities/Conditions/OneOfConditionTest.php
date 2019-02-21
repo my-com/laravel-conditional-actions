@@ -22,7 +22,7 @@ class OneOfConditionTest extends HasChildrenConditionsTestCase
         ];
         $this->target->addConditions(...$conditions);
 
-        $result = $this->testCondition->check($this->target, $this->target->getState());
+        $result = $this->testCondition->check($this->target, $this->target->getInitialState());
 
         $this->assertTrue($result);
         $this->assertFired($conditions[0]);
@@ -38,7 +38,7 @@ class OneOfConditionTest extends HasChildrenConditionsTestCase
         ];
         $this->target->addConditions(...$conditions);
 
-        $result = $this->testCondition->check($this->target, $this->target->getState());
+        $result = $this->testCondition->check($this->target, $this->target->getInitialState());
 
         $this->assertFalse($result);
         $this->assertFired(...$conditions);
@@ -54,7 +54,7 @@ class OneOfConditionTest extends HasChildrenConditionsTestCase
         ];
         $this->target->addConditions(...$conditions);
 
-        $this->testCondition->check($this->target, $this->target->getState());
+        $this->testCondition->check($this->target, $this->target->getInitialState());
 
         $this->assertEquals(
             [$this->action, $actions[1]],
@@ -70,7 +70,7 @@ class OneOfConditionTest extends HasChildrenConditionsTestCase
         ];
         $this->target->addConditions(...$conditions);
 
-        $this->testCondition->check($this->target, $this->target->getState());
+        $this->testCondition->check($this->target, $this->target->getInitialState());
 
         $this->assertEquals(
             [$this->action],
@@ -84,7 +84,7 @@ class OneOfConditionTest extends HasChildrenConditionsTestCase
         $condition->setIsInverted(true);
         $this->target->addConditions($condition);
 
-        $result = $this->testCondition->check($this->target, $this->target->getState());
+        $result = $this->testCondition->check($this->target, $this->target->getInitialState());
 
         $this->assertFalse($result);
         $this->assertFired($condition);

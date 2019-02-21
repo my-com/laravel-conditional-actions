@@ -9,14 +9,14 @@ interface TargetContract
      *
      * @return StateContract
      */
-    public function getState(): StateContract;
+    public function getInitialState(): StateContract;
 
     /**
      * Sets the state to the target.
      *
      * @param StateContract $state
      */
-    public function setState(StateContract $state): void;
+    public function applyState(StateContract $state): void;
 
     /**
      * Gets root target conditions.

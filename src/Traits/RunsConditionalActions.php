@@ -28,11 +28,12 @@ trait RunsConditionalActions
         return $this;
     }
 
-    public function runConditionalActions()
+    public function runConditionalActions(): StateContract
     {
         /** @var ConditionalActionManager $manager */
         $manager = \app(ConditionalActionManager::class);
         $manager->useLogger = $this->useLogger;
-        $manager->run($this, $this->getState());
+
+        return $manager->run($this, $this->getInitialState());
     }
 }
