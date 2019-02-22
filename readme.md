@@ -1,11 +1,11 @@
-# Conditional actions
+# Conditional Actions
 
-This package allows to run your predefined business logic in some predefined conditions defined by user.
-This is helpful when you don`t know specific conditions because it defined dynamically by your managers/users/etc.
+This package allows configuring business logic by API without changing your code.
+This is helpful when you don`t know specific conditions because they defined dynamically by your managers/users/etc.
 
 ## How it works
 
-Codebase provides predefined conditions, actions, targets and API for mix it into business logic to end users.
+Codebase provides predefined conditions, actions, targets and API for mix them into business logic to end users.
 Objects:
 * `Target` - provides all necessary data for conditions and actions;
 * `State` - key-value pairs. Actions should update state when applying;
@@ -14,31 +14,31 @@ Objects:
 
 Lifecycle:
 * `Target` creates a `State` object;
-* `Target` gets all related active `Condition` sorted by priority and run check on each condition;
-* For succeeded `Condition`, `Condition` gets all related actions and apply it to `State`;
-* `Action` return changed `State` which uses in next conditions or actions;
-* After checking all `Condition`, `Target` gets new `State` to `applyState` method. You can use it state as you needed.
+* `Target` gets all related active `Condition` sorted by priority and run the check on each condition;
+* For succeeded `Condition`, `Condition` gets all related actions and apply them to the `State`;
+* `Action` returns changed `State` which used in next conditions or actions;
+* After checking all `Condition`, `Target` gets new `State` to `applyState` method. You can use its state as you needed.
 
 ## Get started
 
 For example, you have a shop that sells toys. Your marketing runs some promotions for specific toys.
-If user buys chests in the past or today is his birthday, "Barbie doll" must have an 10% discount.
-Promotion starts at 2019/05/01 00:00 and finishes at 2019/05/01 23:59.
+If a user buys chests in the past or today is his birthday, "Barbie doll" should have a 10% discount.
+Promotion starts at 2019/05/01 at 00:00 and finishes at 2019/05/01 at 23:59.
 
 You should create:
 
 Conditions:
-* User buys toys in the past (`HasPaidToysCondition`)
+* User bought toys in the past (`HasPaidToysCondition`)
 * Today is his birthday (`TodayIsBirthdayCondition`)
 
 Action:
-* "Barbie doll" should have an discount (`DiscountAction`)
+* "Barbie doll" should have a 10% discount (`DiscountAction`)
 
 For time restrictions (Promotion starts at 2019/05/01 00:00 and finishes at 2019/05/01 23:59) you can use fields `starts_at` and `ends_at`.
 
-Both conditions must be succeeded. You can use `AllOfCondition` condition from package.
+Both conditions should be succeeded. You can use `AllOfCondition` condition from the package.
 
-Marketing can use it for promotions without change you code.
+Marketing can use it for promotions without changing your code.
 
 The final scheme for promotion:
 
@@ -56,7 +56,7 @@ The final scheme for promotion:
        # fields: ['parent_id' => 1, 'parameters' => ['toy_id' => 5]]
 ```
 
-Let`s go to implement it!
+Let`s go to implementation!
 
 ### Install package
 ```bash
@@ -177,8 +177,8 @@ class ToysPriceTarget implements TargetContract
 
 ### Implement conditions
 
-Each conditions must implement `ConditionalActions\Contracts\ConditionContract` contract.
-The package have base abstract class `ConditionalActions\Entities\Conditions\BaseCondition` with all contract methods except the `check` method.
+Each condition should implement `ConditionalActions\Contracts\ConditionContract` contract.
+The package has a base abstract class `ConditionalActions\Entities\Conditions\BaseCondition` with all contract methods except the `check` method.
 
 ```php
 class HasPaidToysCondition extends BaseCondition
@@ -246,8 +246,8 @@ class TodayIsBirthdayCondition extends BaseCondition
 
 ### Implement action
 
-Each conditions must implement `ConditionalActions\Contracts\ActionContract` contract.
-The package have base abstract class `ConditionalActions\Entities\Actions\BaseAction` with all contract methods except the `apply` method.
+Each condition should implement `ConditionalActions\Contracts\ActionContract` contract.
+The package has a base abstract class `ConditionalActions\Entities\Actions\BaseAction` with all contract methods except the `apply` method.
 
 ```php
 class DiscountAction extends BasenAction
@@ -295,7 +295,7 @@ return [
 
 ### Implement API for adds conditions and actions for `Toy` model
 
-You can use eloquent models or any other objects to put business logic to external storage.
+You can use eloquent models or any other objects to put business logic into external storage.
 
 ```php
 # This example is not an API. You can create API as you needed.
@@ -345,12 +345,12 @@ dump($newState->getAttribute('price'));
 
 The package includes conditions and actions:
 
-* Condition `AllOfCondition` - succeeded when **all** children conditions is succeeded. All children actions will included to parent `AllOfCondition` condition;
-* Condition `OneOfCondition` - succeeded when **any of** children conditions is succeeded. All children actions for **first** succeeded condition will included to parent `OneOfCondition` condition; 
+* Condition `AllOfCondition` - succeeded when **all** children conditions are succeeded. All children actions will be included to parent `AllOfCondition` condition;
+* Condition `OneOfCondition` - succeeded when **any of** children conditions are succeeded. All children actions for **first** succeeded condition will be included to parent `OneOfCondition` condition; 
 * Condition `TrueCondition` - always succeeded;
 * Action `UpdateStateAttribute` - Updates an attribute value in the state.
 
-Both conditions and actions has fields:
+Both conditions and actions have fields:
 * `priority` - execution priority;
 * nullable `starts_at` and `ends_at` - enables condition or action at specific time period;
 * `parameters` - parameters of conditions or actions;
