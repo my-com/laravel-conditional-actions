@@ -3,7 +3,7 @@
 namespace Tests\Unit\Entities\Conditions;
 
 use ConditionalActions\Entities\Conditions\OneOfCondition;
-use Tests\Helpers\Dummy\Action;
+use Tests\Helpers\Dummy\DummyAction;
 
 class OneOfConditionTest extends HasChildrenConditionsTestCase
 {
@@ -16,9 +16,9 @@ class OneOfConditionTest extends HasChildrenConditionsTestCase
     public function test_true_when_has_succeed_conditions()
     {
         $conditions = [
-            $this->failedChildrenCondition(new Action()),
-            $this->succeedChildrenCondition(new Action()),
-            $this->succeedChildrenCondition(new Action()),
+            $this->failedChildrenCondition(new DummyAction()),
+            $this->succeedChildrenCondition(new DummyAction()),
+            $this->succeedChildrenCondition(new DummyAction()),
         ];
         $this->target->addConditions(...$conditions);
 
@@ -33,8 +33,8 @@ class OneOfConditionTest extends HasChildrenConditionsTestCase
     public function test_false_when_no_succeeds()
     {
         $conditions = [
-            $this->failedChildrenCondition(new Action()),
-            $this->failedChildrenCondition(new Action()),
+            $this->failedChildrenCondition(new DummyAction()),
+            $this->failedChildrenCondition(new DummyAction()),
         ];
         $this->target->addConditions(...$conditions);
 
@@ -65,8 +65,8 @@ class OneOfConditionTest extends HasChildrenConditionsTestCase
     public function test_dont_collect_actions_when_no_succeed_conditions()
     {
         $conditions = [
-            $this->failedChildrenCondition(new Action()),
-            $this->failedChildrenCondition(new Action()),
+            $this->failedChildrenCondition(new DummyAction()),
+            $this->failedChildrenCondition(new DummyAction()),
         ];
         $this->target->addConditions(...$conditions);
 

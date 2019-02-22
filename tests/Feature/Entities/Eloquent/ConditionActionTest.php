@@ -72,7 +72,7 @@ class ConditionActionTest extends EloquentTestCase
     {
         /** @var Action $action */
         $action = \create(Action::class, [
-            'name' => 'UpdateStateAttribute',
+            'name' => 'UpdateStateAttributeAction',
             'parameters' => ['one' => 'first'],
         ]);
 

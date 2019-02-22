@@ -2,6 +2,9 @@
 
 namespace ConditionalActions\Contracts;
 
+use ConditionalActions\Entities\Conditions\BaseCondition;
+use Illuminate\Support\Carbon;
+
 interface ConditionContract
 {
     /**
@@ -93,4 +96,52 @@ interface ConditionContract
      * @return iterable
      */
     public function getParameters(): iterable;
+
+    /**
+     * Gets priority.
+     *
+     * @return int
+     */
+    public function getPriority(): int;
+
+    /**
+     * Sets the priority.
+     *
+     * @param int $priority
+     *
+     * @return BaseCondition
+     */
+    public function setPriority(int $priority): BaseCondition;
+
+    /**
+     * Sets the starts time.
+     *
+     * @param Carbon|null $startsAt
+     *
+     * @return BaseCondition
+     */
+    public function setStartsAt(?Carbon $startsAt): BaseCondition;
+
+    /**
+     * Gets finishes time.
+     *
+     * @return Carbon|null
+     */
+    public function getEndsAt(): ?Carbon;
+
+    /**
+     * Gets starts time.
+     *
+     * @return Carbon|null
+     */
+    public function getStartsAt(): ?Carbon;
+
+    /**
+     * Sets the finishes time.
+     *
+     * @param Carbon|null $endsAt
+     *
+     * @return BaseCondition
+     */
+    public function setEndsAt(?Carbon $endsAt): BaseCondition;
 }

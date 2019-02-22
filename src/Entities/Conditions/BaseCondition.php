@@ -6,6 +6,7 @@ use ConditionalActions\Contracts\ActionContract;
 use ConditionalActions\Contracts\ConditionContract;
 use ConditionalActions\Contracts\StateContract;
 use ConditionalActions\Contracts\TargetContract;
+use Illuminate\Support\Carbon;
 
 abstract class BaseCondition implements ConditionContract
 {
@@ -23,6 +24,15 @@ abstract class BaseCondition implements ConditionContract
 
     /** @var int|null */
     protected $parentId;
+
+    /** @var int */
+    protected $priority = 0;
+
+    /** @var Carbon|null */
+    protected $startsAt;
+
+    /** @var Carbon|null */
+    protected $endsAt;
 
     /**
      * Runs condition check.
@@ -97,6 +107,78 @@ abstract class BaseCondition implements ConditionContract
     }
 
     /**
+     * Sets the priority.
+     *
+     * @param int $priority
+     *
+     * @return BaseCondition
+     */
+    public function setPriority(int $priority): BaseCondition
+    {
+        $this->priority = $priority;
+
+        return $this;
+    }
+
+    /**
+     * Gets priority.
+     *
+     * @return int
+     */
+    public function getPriority(): int
+    {
+        return $this->priority;
+    }
+
+    /**
+     * Sets the starts time.
+     *
+     * @param Carbon|null $startsAt
+     *
+     * @return BaseCondition
+     */
+    public function setStartsAt(?Carbon $startsAt): BaseCondition
+    {
+        $this->startsAt = $startsAt;
+
+        return $this;
+    }
+
+    /**
+     * Gets starts time.
+     *
+     * @return Carbon|null
+     */
+    public function getStartsAt(): ?Carbon
+    {
+        return $this->startsAt;
+    }
+
+    /**
+     * Sets the finishes time.
+     *
+     * @param Carbon|null $endsAt
+     *
+     * @return BaseCondition
+     */
+    public function setEndsAt(?Carbon $endsAt): BaseCondition
+    {
+        $this->endsAt = $endsAt;
+
+        return $this;
+    }
+
+    /**
+     * Gets finishes time.
+     *
+     * @return Carbon|null
+     */
+    public function getEndsAt(): ?Carbon
+    {
+        return $this->endsAt;
+    }
+
+    /**
      * Determines whether this condition result should be inverted.
      *
      * @return bool
@@ -164,6 +246,13 @@ abstract class BaseCondition implements ConditionContract
     public function getParameters(): iterable
     {
         return $this->parameters;
+    }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this
+        ];
     }
 
     protected function expectedResult(): bool

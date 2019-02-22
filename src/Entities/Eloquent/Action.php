@@ -70,6 +70,12 @@ class Action extends Model
 
         /** @var ActionContract $action */
         $action = \app($className);
+        $action
+            ->setId($this->id)
+            ->setParameters($this->parameters ?? [])
+            ->setPriority($this->priority ?? 0)
+            ->setStartsAt($this->starts_at)
+            ->setEndsAt($this->ends_at);
 
         return $action->setParameters($this->parameters);
     }

@@ -285,7 +285,7 @@ return [
         'TodayIsBirthdayCondition' => App\ConditionalActions\Conditions\TodayIsBirthdayCondition::class,
     ],
     'actions' => [
-        'UpdateStateAttribute' => ConditionalActions\Entities\Actions\UpdateStateAttributeAction::class,
+        'UpdateStateAttributeAction' => ConditionalActions\Entities\Actions\UpdateStateAttributeAction::class,
 
         'DiscountAction' => App\ConditionalActions\Actions\DiscountAction::class,
     ],
@@ -348,7 +348,7 @@ The package includes conditions and actions:
 * Condition `AllOfCondition` - succeeded when **all** children conditions are succeeded. All children actions will be included to parent `AllOfCondition` condition;
 * Condition `OneOfCondition` - succeeded when **any of** children conditions are succeeded. All children actions for **first** succeeded condition will be included to parent `OneOfCondition` condition; 
 * Condition `TrueCondition` - always succeeded;
-* Action `UpdateStateAttribute` - Updates an attribute value in the state.
+* Action `UpdateStateAttributeAction` - Updates an attribute value in the state.
 
 Both conditions and actions have fields:
 * `priority` - execution priority;

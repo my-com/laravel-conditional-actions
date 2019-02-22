@@ -3,7 +3,7 @@
 namespace Tests\Unit\Entities\Conditions;
 
 use ConditionalActions\Entities\Conditions\AllOfCondition;
-use Tests\Helpers\Dummy\Action;
+use Tests\Helpers\Dummy\DummyAction;
 use Tests\Helpers\Dummy\DummyCondition;
 
 class AllOfConditionTest extends HasChildrenConditionsTestCase
@@ -51,7 +51,7 @@ class AllOfConditionTest extends HasChildrenConditionsTestCase
 
     public function test_child_actions_collected()
     {
-        $action1 = new Action();
+        $action1 = new DummyAction();
         /** @var DummyCondition[] $conditions */
         $conditions = [
             $this->succeedChildrenCondition(),
@@ -70,8 +70,8 @@ class AllOfConditionTest extends HasChildrenConditionsTestCase
         /** @var DummyCondition[] $conditions */
         $conditions = [
             $this->succeedChildrenCondition(),
-            $this->succeedChildrenCondition(new Action()),
-            $this->failedChildrenCondition(new Action()),
+            $this->succeedChildrenCondition(new DummyAction()),
+            $this->failedChildrenCondition(new DummyAction()),
         ];
         $this->target->addConditions(...$conditions);
 

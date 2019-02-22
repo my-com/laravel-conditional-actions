@@ -3,8 +3,8 @@
 namespace Tests\Feature\Entities\Eloquent;
 
 use ConditionalActions\Entities\Conditions\TrueCondition;
-use ConditionalActions\Entities\Eloquent\Condition;
 use ConditionalActions\Entities\Eloquent\Action;
+use ConditionalActions\Entities\Eloquent\Condition;
 use ConditionalActions\Exceptions\ConditionNotFoundException;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;

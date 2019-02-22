@@ -1,0 +1,267 @@
+openapi: 3.0.1
+
+info:
+  description: "Put your business logic to external storage."
+  version: "1.0.0-alpha.1"
+  title: "Conditional Actions API"
+  contact:
+    email: "a.paramonov@corp.my.com"
+  license:
+    name: "MIT"
+servers:
+  - url: "/api/v1/conditional-actions/"
+
+paths:
+  /conditions:
+    post:
+      tags:
+        - "Conditions"
+      summary: "Add a new condition to the store"
+      operationId: "postCondition"
+      requestBody:
+        $ref: "#/components/requestBodies/ConditionRequest"
+      responses:
+        200:
+          $ref: "#/components/responses/ConditionResponse"
+        422:
+          description: "Validation exception"
+
+  /conditions/{conditionId}:
+    parameters:
+      - $ref: "#/components/parameters/conditionId"
+
+    put:
+      tags:
+        - "Conditions"
+      summary: "Update condition"
+      operationId: "putCondition"
+      requestBody:
+        $ref: "#/components/requestBodies/ConditionRequest"
+      responses:
+        200:
+          $ref: "#/components/responses/ConditionResponse"
+        404:
+          description: "Condition not found"
+        422:
+          description: "Validation exception"
+
+    get:
+      tags:
+        - "Conditions"
+      summary: "Get condition"
+      operationId: "getCondition"
+      responses:
+        200:
+          $ref: "#/components/responses/ConditionResponse"
+        404:
+          description: "Condition not found"
+
+    delete:
+      tags:
+        - "Conditions"
+      summary: "Delete condition"
+      operationId: "deleteCondition"
+      responses:
+        200:
+          $ref: "#/components/responses/ConditionResponse"
+        404:
+          description: "Condition not found"
+
+  /actions:
+    post:
+      tags:
+        - "Actions"
+      summary: "Add a new action to the condition"
+      operationId: "postAction"
+      requestBody:
+        $ref: "#/components/requestBodies/ActionRequest"
+      responses:
+        200:
+          $ref: "#/components/responses/ActionResponse"
+        422:
+          description: "Validation exception"
+
+  /actions/{actionId}:
+    parameters:
+      - $ref: "#/components/parameters/actionId"
+
+    put:
+      tags:
+        - "Actions"
+      summary: "Update an action"
+      operationId: "putAction"
+      requestBody:
+        $ref: "#/components/requestBodies/ActionRequest"
+      responses:
+        200:
+          $ref: "#/components/responses/ActionResponse"
+        404:
+          description: "Action not found"
+        422:
+          description: "Validation exception"
+
+    get:
+      tags:
+        - "Actions"
+      summary: "Get action"
+      operationId: "getAction"
+      responses:
+        200:
+          $ref: "#/components/responses/ActionResponse"
+        404:
+          description: "Action not found"
+
+    delete:
+      tags:
+        - "Actions"
+      summary: "Delete action"
+      operationId: "deleteAction"
+      responses:
+        200:
+          $ref: "#/components/responses/ActionResponse"
+        404:
+          description: "Action not found"
+
+components:
+  requestBodies:
+    ConditionRequest:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Condition"
+
+    ActionRequest:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Action"
+
+  schemas:
+
+    # Models
+    Condition:
+      allOf:
+        - type: "object"
+          required:
+            - "name"
+          properties:
+            name:
+              type: "string"
+              example: "AllOfCondition"
+            is_inverted:
+              type: "boolean"
+              default: false
+              example: false
+            parameters:
+              type: "object"
+        - $ref: "#/components/schemas/priority"
+        - $ref: "#/components/schemas/startsAt"
+        - $ref: "#/components/schemas/endsAt"
+
+    ConditionFull:
+      allOf:
+        - $ref: "#/components/schemas/Condition"
+        - type: "object"
+          properties:
+            id:
+              type: "integer"
+              description: "Condition identifier"
+              example: 1
+            target_type:
+              type: "string"
+              description: "Type of target"
+              example: "App\\Models\\Toy"
+            target_id:
+              type: "integer"
+
+    Action:
+      allOf:
+        - type: "object"
+          required:
+            - "name"
+          properties:
+            name:
+              type: "string"
+              example: "DiscountAction"
+            parameters:
+              description: "Action parameters"
+              type: "object"
+              example:
+                discount: 10
+        - $ref: "#/components/schemas/priority"
+        - $ref: "#/components/schemas/startsAt"
+        - $ref: "#/components/schemas/endsAt"
+
+    ActionFull:
+      allOf:
+        - $ref: "#/components/schemas/Action"
+        - type: "object"
+          properties:
+            id:
+              type: "integer"
+              description: "Condition identifier"
+              example: 1
+
+    # Properties
+    priority:
+      type: "object"
+      properties:
+        priority:
+          type: "integer"
+          default: "0"
+          example: 1
+
+    startsAt:
+      type: "object"
+      properties:
+        starts_at:
+          description: "Start time"
+          type: "string"
+          format: "date-time"
+          nullable: true
+          default: ""
+          example: "2019-05-01 10:00:00"
+
+    endsAt:
+      type: "object"
+      properties:
+        ends_at:
+          description: "Finish time"
+          type: "string"
+          format: "date-time"
+          default: ""
+          nullable: true
+          example: "2019-05-10 10:00:00"
+
+
+  parameters:
+    conditionId:
+      name: "conditionId"
+      in: "path"
+      required: true
+      description: "The condition identifier"
+      schema:
+        type: "integer"
+
+    actionId:
+      name: "actionId"
+      in: "path"
+      required: true
+      description: "The action identifier"
+      schema:
+        type: "integer"
+
+  responses:
+    ConditionResponse:
+      description: "Condition object"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ConditionFull"
+
+    ActionResponse:
+      description: "Action object"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ActionFull"

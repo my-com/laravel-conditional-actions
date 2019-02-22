@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use ConditionalActions\ConditionalActionManager;
-use Tests\Helpers\Dummy\Action;
+use Tests\Helpers\Dummy\DummyAction;
 use Tests\Helpers\Dummy\DummyTarget;
 use Tests\TestCase;
 

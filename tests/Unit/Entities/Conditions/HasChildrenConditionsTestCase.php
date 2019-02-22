@@ -4,7 +4,7 @@ namespace Tests\Unit\Entities\Conditions;
 
 use ConditionalActions\Contracts\ActionContract;
 use ConditionalActions\Contracts\ConditionContract;
-use Tests\Helpers\Dummy\Action;
+use Tests\Helpers\Dummy\DummyAction;
 use Tests\Helpers\Dummy\DummyCondition;
 use Tests\Helpers\Dummy\DummyTarget;
 use Tests\TestCase;
@@ -17,13 +17,13 @@ class HasChildrenConditionsTestCase extends TestCase
     /** @var DummyTarget */
     protected $target;
 
-    /** @var Action */
+    /** @var DummyAction */
     protected $action;
 
     protected function makeTestCondition(ConditionContract $condition)
     {
         $this->target = new DummyTarget();
-        $this->action = new Action();
+        $this->action = new DummyAction();
 
         $this->testCondition = $condition;
         $this->testCondition->setId(++$this->id);

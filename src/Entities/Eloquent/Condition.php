@@ -95,6 +95,9 @@ class Condition extends Model
                 return $action->toAction();
             }))
             ->setIsInverted($this->is_inverted)
+            ->setPriority($this->priority ?? 0)
+            ->setStartsAt($this->starts_at)
+            ->setEndsAt($this->ends_at)
             ->setParameters($this->parameters);
     }
 

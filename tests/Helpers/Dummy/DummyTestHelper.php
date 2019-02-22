@@ -12,14 +12,14 @@ trait DummyTestHelper
     /**
      * @param int $count
      *
-     * @return Action[]
+     * @return DummyAction[]
      */
     protected function makeActions(int $count = 1): array
     {
         $actions = [];
 
         for ($i = 0; $i < $count; $i++) {
-            $actions[] = new Action();
+            $actions[] = new DummyAction();
         }
 
         return $actions;

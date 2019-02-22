@@ -2,8 +2,9 @@
 
 namespace ConditionalActions\Exceptions;
 
-use Exception;
+use Symfony\Component\HttpFoundation\Response;
 
-class ActionNotFoundException extends Exception
+class ActionNotFoundException extends BaseException
 {
+    protected $code = Response::HTTP_NOT_FOUND;
 }

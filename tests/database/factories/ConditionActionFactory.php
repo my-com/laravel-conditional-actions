@@ -8,7 +8,7 @@ use Illuminate\Support\Carbon;
 $factory->define(Action::class, function (Generator $faker) {
     return [
         'condition_id' => factory(Condition::class),
-        'name' => 'UpdateStateAttribute',
+        'name' => 'UpdateStateAttributeAction',
     ];
 });
 

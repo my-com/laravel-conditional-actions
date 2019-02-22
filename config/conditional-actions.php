@@ -7,7 +7,7 @@ return [
         'TrueCondition'  => ConditionalActions\Entities\Conditions\TrueCondition::class,
     ],
     'actions' => [
-        'UpdateStateAttribute' => ConditionalActions\Entities\Actions\UpdateStateAttributeAction::class,
+        'UpdateStateAttributeAction' => ConditionalActions\Entities\Actions\UpdateStateAttributeAction::class,
     ],
     'use_logger' => env('APP_DEBUG', false),
 ];
