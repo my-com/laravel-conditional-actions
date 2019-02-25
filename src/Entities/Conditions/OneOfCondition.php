@@ -18,7 +18,10 @@ class OneOfCondition extends BaseCondition
     public function check(TargetContract $target, StateContract $state): bool
     {
         foreach ($target->getChildrenConditions($this->id) as $condition) {
-            if ($condition->check($target, $state) === $this->expectedResult()) {
+
+            $conditionResult = $condition->check($target, $state) !== $condition->isInverted();
+
+            if ($conditionResult === $this->expectedResult()) {
                 $this->addActions(...$condition->getActions());
 
                 return true;

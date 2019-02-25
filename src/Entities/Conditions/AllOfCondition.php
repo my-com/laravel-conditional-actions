@@ -20,7 +20,10 @@ class AllOfCondition extends BaseCondition
         $actions = [];
 
         foreach ($target->getChildrenConditions($this->id) as $condition) {
-            if ($condition->check($target, $state) !== $this->expectedResult()) {
+
+            $conditionResult = $condition->check($target, $state) !== $condition->isInverted();
+
+            if ($conditionResult !== $this->expectedResult()) {
                 return false;
             } else {
                 $actions = \array_merge($actions, $condition->getActions());

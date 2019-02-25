@@ -81,7 +81,7 @@ class AllOfConditionTest extends HasChildrenConditionsTestCase
         $this->assertEquals([$this->action], $this->testCondition->getActions());
     }
 
-    public function test_inverted_failed_condition_succeed()
+    public function test_children_inverted_failed_condition_succeed()
     {
         $condition = $this->failedChildrenCondition();
         $condition->setIsInverted(true);
@@ -89,7 +89,19 @@ class AllOfConditionTest extends HasChildrenConditionsTestCase
 
         $result = $this->testCondition->check($this->target, $this->target->getInitialState());
 
-        $this->assertFalse($result);
+        $this->assertTrue($result);
+        $this->assertFired($condition);
+    }
+
+    public function test_all_of_inverted_failed_condition_succeed()
+    {
+        $this->testCondition->setIsInverted(true);
+        $condition = $this->failedChildrenCondition();
+        $this->target->addConditions($condition);
+
+        $result = $this->testCondition->check($this->target, $this->target->getInitialState());
+
+        $this->assertTrue($result);
         $this->assertFired($condition);
     }
 }

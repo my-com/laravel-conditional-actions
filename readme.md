@@ -106,7 +106,7 @@ php artisan vendor:publish --provider="ConditionalActions\ConditionalActionsServ
 
 ### Implement Target
 
-Target is object that provides all necessary data for conditions and actions. It can be also an eloquent model.
+Target is an object that provides all necessary data for conditions and actions. It can be also an eloquent model.
 
 Since `Toy` - object for conditional actions, it should use `EloquentTarget` trait (trait has relationships and some method to get conditions for model)
 
