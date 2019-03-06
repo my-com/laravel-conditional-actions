@@ -60,7 +60,7 @@ class Condition extends Model
 
     public function childrenConditions(): HasMany
     {
-        return $this->hasMany(Condition::class, 'parent_id', 'id');
+        return $this->hasMany(self::class, 'parent_id', 'id');
     }
 
     public function isActive(): bool

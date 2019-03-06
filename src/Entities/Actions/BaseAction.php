@@ -5,6 +5,9 @@ namespace ConditionalActions\Entities\Actions;
 use ConditionalActions\Contracts\ActionContract;
 use Illuminate\Support\Carbon;
 
+/**
+ * @SuppressWarnings(PHPMD.ShortVariable)
+ */
 abstract class BaseAction implements ActionContract
 {
     /** @var int|null */
@@ -53,7 +56,7 @@ abstract class BaseAction implements ActionContract
      *
      * @return BaseAction
      */
-    public function setId(?int $id): BaseAction
+    public function setId(?int $id): self
     {
         $this->id = $id;
 
@@ -77,7 +80,7 @@ abstract class BaseAction implements ActionContract
      *
      * @return BaseAction
      */
-    public function setPriority(int $priority): BaseAction
+    public function setPriority(int $priority): self
     {
         $this->priority = $priority;
 
@@ -101,7 +104,7 @@ abstract class BaseAction implements ActionContract
      *
      * @return BaseAction
      */
-    public function setStartsAt(?Carbon $startsAt): BaseAction
+    public function setStartsAt(?Carbon $startsAt): self
     {
         $this->startsAt = $startsAt;
 
@@ -125,7 +128,7 @@ abstract class BaseAction implements ActionContract
      *
      * @return BaseAction
      */
-    public function setEndsAt(?Carbon $endsAt): BaseAction
+    public function setEndsAt(?Carbon $endsAt): self
     {
         $this->endsAt = $endsAt;
 
