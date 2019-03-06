@@ -299,7 +299,6 @@ You can use eloquent models or any other objects to put business logic into exte
 
 The package has basic CRUD for conditions and actions. You can enable it:
 ```php
-
 use ConditionalActions\ConditionalActions;
 use Illuminate\Support\ServiceProvider;
 

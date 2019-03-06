@@ -30,7 +30,7 @@ class AllOfCondition extends BaseCondition
             }
         }
 
-        $this->addActions(...$actions);
+        $this->prependActions(...$actions);
 
         return true;
     }

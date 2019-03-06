@@ -52,17 +52,22 @@ class AllOfConditionTest extends HasChildrenConditionsTestCase
     public function test_child_actions_collected()
     {
         $action1 = new DummyAction();
+        $action2 = new DummyAction();
         /** @var DummyCondition[] $conditions */
         $conditions = [
             $this->succeedChildrenCondition(),
             $this->succeedChildrenCondition($action1),
         ];
         $this->target->addConditions(...$conditions);
+        $this->testCondition->setActions([$this->action, $action2]);
 
         $result = $this->testCondition->check($this->target, $this->target->getInitialState());
 
         $this->assertTrue($result);
-        $this->assertEquals([$this->action, $action1], $this->testCondition->getActions());
+        $this->assertSame(
+            [$action1, $this->action, $action2],
+            $this->testCondition->getActions()
+        );
     }
 
     public function test_child_actions_not_collected_when_failed()
@@ -78,7 +83,7 @@ class AllOfConditionTest extends HasChildrenConditionsTestCase
         $result = $this->testCondition->check($this->target, $this->target->getInitialState());
 
         $this->assertFalse($result);
-        $this->assertEquals([$this->action], $this->testCondition->getActions());
+        $this->assertSame([$this->action], $this->testCondition->getActions());
     }
 
     public function test_children_inverted_failed_condition_succeed()
