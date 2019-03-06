@@ -60,7 +60,7 @@ Let`s go to implementation!
 
 ### Install package
 ```bash
-composer require xxxcoltxxx/conditional-actions
+composer require my-com/laravel-conditional-actions
 ```
 
 ### Laravel
@@ -297,6 +297,22 @@ return [
 
 You can use eloquent models or any other objects to put business logic into external storage.
 
+The package has basic CRUD for conditions and actions. You can enable it:
+```php
+use ConditionalActions\ConditionalActions
+use Illuminate\Support\ServiceProvider;;
+
+class RouteServiceProvider extends ServiceProvider
+{
+    // ...
+    public function register()
+    {
+        ConditionalActions::routes();
+    }
+}
+```
+
+Or you can implement your own API. Sample example:
 ```php
 # This example is not an API. You can create API as you needed.
 
