@@ -6,6 +6,7 @@
             "email": "a.paramonov@corp.my.com"
         }
     ],
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "ConditionalActions\\": "./src"
