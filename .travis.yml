@@ -1,0 +1,10 @@
+language: php
+php:
+  - '7.2'
+  - '7.3'
+env: NAME="Unit tests"
+before_script:
+  - ./ci/install-composer.sh
+  - php composer.phar install
+script:
+  - vendor/bin/phpunit tests
