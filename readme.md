@@ -1,5 +1,7 @@
 # Conditional Actions
 
+![Build Status](https://travis-ci.org/my-com/laravel-conditional-actions.svg?branch=master)
+
 This package allows configuring business logic by API without changing your code.
 This is helpful when you don`t know specific conditions because they defined dynamically by your managers/users/etc.
 
