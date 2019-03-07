@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 
 /**
  * @mixin Model
+ *
  * @property Collection|ConditionContract[] conditions
  */
 trait EloquentTarget

@@ -7,6 +7,9 @@ use ConditionalActions\Contracts\Repositories\ConditionRepository;
 use ConditionalActions\Entities\Eloquent\Condition;
 use ConditionalActions\Exceptions\ConditionNotFoundException;
 
+/**
+ * @SuppressWarnings(PHPMD.ShortVariable)
+ */
 class EloquentConditionRepository implements ConditionRepository
 {
     /** @var Condition */
@@ -31,10 +34,10 @@ class EloquentConditionRepository implements ConditionRepository
      * @param int $id
      * @param array $attributes
      *
-     * @return ConditionContract
-     *
      * @throws ConditionNotFoundException
      * @throws \Throwable
+     *
+     * @return ConditionContract
      */
     public function update(int $id, array $attributes): ConditionContract
     {
@@ -53,10 +56,10 @@ class EloquentConditionRepository implements ConditionRepository
     /**
      * @param int $id
      *
-     * @return ConditionContract
-     *
      * @throws ConditionNotFoundException
      * @throws \Throwable
+     *
+     * @return ConditionContract
      */
     public function destroy(int $id): ConditionContract
     {

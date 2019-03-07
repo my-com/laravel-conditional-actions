@@ -32,6 +32,10 @@
     },
     "require-dev": {
         "orchestra/testbench": "~3.6.6",
-        "mockery/mockery": "^1.2"
+        "mockery/mockery": "^1.2",
+        "phpro/grumphp": "^0.15.0",
+        "phpmd/phpmd": "^2.6",
+        "friendsofphp/php-cs-fixer": "^2.14",
+        "sebastian/phpcpd": "^4.1"
     }
 }

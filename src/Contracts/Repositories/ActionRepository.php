@@ -4,6 +4,9 @@ namespace ConditionalActions\Contracts\Repositories;
 
 use ConditionalActions\Contracts\ActionContract;
 
+/**
+ * @SuppressWarnings(PHPMD.ShortVariable)
+ */
 interface ActionRepository
 {
     public function find(int $id): ActionContract;

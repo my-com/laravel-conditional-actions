@@ -17,8 +17,6 @@ class RouteRegistrar
      * Create a new route registrar instance.
      *
      * @param  Router $router
-     *
-     * @return void
      */
     public function __construct(Router $router)
     {
@@ -27,8 +25,6 @@ class RouteRegistrar
 
     /**
      * Register routes for transient tokens, clients, and personal access tokens.
-     *
-     * @return void
      */
     public function all()
     {

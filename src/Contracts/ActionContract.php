@@ -5,6 +5,9 @@ namespace ConditionalActions\Contracts;
 use ConditionalActions\Entities\Actions\BaseAction;
 use Illuminate\Support\Carbon;
 
+/**
+ * @SuppressWarnings(PHPMD.ShortVariable)
+ */
 interface ActionContract
 {
     /**

@@ -8,6 +8,9 @@ use ConditionalActions\Contracts\StateContract;
 use ConditionalActions\Contracts\TargetContract;
 use Illuminate\Support\Carbon;
 
+/**
+ * @SuppressWarnings(PHPMD.ShortVariable)
+ */
 abstract class BaseCondition implements ConditionContract
 {
     /** @var int */
@@ -113,7 +116,7 @@ abstract class BaseCondition implements ConditionContract
      *
      * @return BaseCondition
      */
-    public function setPriority(int $priority): BaseCondition
+    public function setPriority(int $priority): self
     {
         $this->priority = $priority;
 
@@ -137,7 +140,7 @@ abstract class BaseCondition implements ConditionContract
      *
      * @return BaseCondition
      */
-    public function setStartsAt(?Carbon $startsAt): BaseCondition
+    public function setStartsAt(?Carbon $startsAt): self
     {
         $this->startsAt = $startsAt;
 
@@ -161,7 +164,7 @@ abstract class BaseCondition implements ConditionContract
      *
      * @return BaseCondition
      */
-    public function setEndsAt(?Carbon $endsAt): BaseCondition
+    public function setEndsAt(?Carbon $endsAt): self
     {
         $this->endsAt = $endsAt;
 
@@ -251,7 +254,7 @@ abstract class BaseCondition implements ConditionContract
     public function toArray()
     {
         return [
-            'id' => $this
+            'id' => $this,
         ];
     }
 

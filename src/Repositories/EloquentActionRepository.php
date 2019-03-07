@@ -7,6 +7,9 @@ use ConditionalActions\Contracts\Repositories\ActionRepository;
 use ConditionalActions\Entities\Eloquent\Action;
 use ConditionalActions\Exceptions\ActionNotFoundException;
 
+/**
+ * @SuppressWarnings(PHPMD.ShortVariable)
+ */
 class EloquentActionRepository implements ActionRepository
 {
     /** @var Action */
@@ -31,11 +34,10 @@ class EloquentActionRepository implements ActionRepository
      * @param int $id
      * @param array $attributes
      *
-     * @return ActionContract
-     *
      * @throws ActionNotFoundException
-     *
      * @throws \Throwable
+     *
+     * @return ActionContract
      */
     public function update(int $id, array $attributes): ActionContract
     {
@@ -54,10 +56,10 @@ class EloquentActionRepository implements ActionRepository
     /**
      * @param int $id
      *
-     * @return ActionContract
-     *
      * @throws ActionNotFoundException
      * @throws \Throwable
+     *
+     * @return ActionContract
      */
     public function destroy(int $id): ActionContract
     {

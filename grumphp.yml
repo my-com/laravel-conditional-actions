@@ -1,0 +1,49 @@
+parameters:
+  git_dir: .
+  bin_dir: vendor/bin
+  tasks:
+    composer:
+      file: ./composer.json
+      no_check_publish: true
+
+    git_blacklist:
+      keywords:
+        - "die("
+        - "var_dump("
+        - " dd("
+        - "dump("
+        - "exit;"
+        - "exit("
+
+    phpcpd:
+      directory: './src'
+      fuzzy: true
+      min_lines: 5
+      min_tokens: 70
+      triggered_by: ['php']
+
+    securitychecker:
+      lockfile: composer.lock
+      format: ~
+      end_point: ~
+      timeout: ~
+      run_always: false
+
+    phpcsfixer2:
+      allow_risky: true
+      cache_file: '.php_cs.cache'
+      config: '.php_cs.dist.php'
+      rules: []
+      using_cache: true
+      config_contains_finder: true
+      verbose: true
+      diff: true
+      triggered_by: ['php']
+
+    phpmd:
+      exclude: ['docs', 'tests', 'vendor']
+      ruleset: ['codesize', 'controversial', 'naming']
+      triggered_by: ['php']
+
+    phpversion:
+      project: '7.2'
