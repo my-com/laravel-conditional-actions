@@ -28,7 +28,7 @@ class AllOfCondition extends BaseCondition
             $actions = \array_merge($actions, $condition->getActions());
         }
 
-        $this->addActions(...$actions);
+        $this->prependActions(...$actions);
 
         return true;
     }

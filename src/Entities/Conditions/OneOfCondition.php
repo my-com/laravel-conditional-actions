@@ -21,7 +21,7 @@ class OneOfCondition extends BaseCondition
             $conditionResult = $condition->check($target, $state) !== $condition->isInverted();
 
             if ($conditionResult === $this->expectedResult()) {
-                $this->addActions(...$condition->getActions());
+                $this->prependActions(...$condition->getActions());
 
                 return true;
             }

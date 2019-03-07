@@ -222,9 +222,21 @@ abstract class BaseCondition implements ConditionContract
      */
     protected function addActions(ActionContract ...$actions)
     {
-        foreach ($actions as $action) {
-            $this->actions[] = $action;
-        }
+        $this->actions = \array_merge(
+            (array) $this->actions, $actions
+        );
+    }
+
+    /**
+     * Adds actions to actions queue.
+     *
+     * @param ActionContract ...$actions
+     */
+    protected function prependActions(ActionContract ...$actions)
+    {
+        $this->actions = \array_merge(
+            $actions, (array) $this->actions
+        );
     }
 
     /**

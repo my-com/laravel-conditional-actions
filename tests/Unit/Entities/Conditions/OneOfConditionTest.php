@@ -46,18 +46,19 @@ class OneOfConditionTest extends HasChildrenConditionsTestCase
 
     public function test_collect_actions_of_first_succeed_condition()
     {
-        $actions = $this->makeActions(3);
+        $actions = $this->makeActions(4);
         $conditions = [
             $this->failedChildrenCondition($actions[0]),
             $this->succeedChildrenCondition($actions[1]),
             $this->succeedChildrenCondition($actions[2]),
         ];
         $this->target->addConditions(...$conditions);
+        $this->testCondition->setActions([$this->action, $actions[3]]);
 
         $this->testCondition->check($this->target, $this->target->getInitialState());
 
-        $this->assertEquals(
-            [$this->action, $actions[1]],
+        $this->assertSame(
+            [$actions[1], $this->action, $actions[3]],
             $this->testCondition->getActions()
         );
     }
@@ -72,7 +73,7 @@ class OneOfConditionTest extends HasChildrenConditionsTestCase
 
         $this->testCondition->check($this->target, $this->target->getInitialState());
 
-        $this->assertEquals(
+        $this->assertSame(
             [$this->action],
             $this->testCondition->getActions()
         );
