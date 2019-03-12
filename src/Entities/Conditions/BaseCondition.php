@@ -200,7 +200,7 @@ abstract class BaseCondition implements ConditionContract
      */
     public function setActions(?iterable $actions): ConditionContract
     {
-        $this->actions = $actions ?? [];
+        $this->actions = \collect($actions)->toArray();
 
         return $this;
     }
@@ -223,7 +223,8 @@ abstract class BaseCondition implements ConditionContract
     protected function addActions(ActionContract ...$actions)
     {
         $this->actions = \array_merge(
-            (array) $this->actions, $actions
+            (array) $this->actions,
+            $actions
         );
     }
 
@@ -235,7 +236,8 @@ abstract class BaseCondition implements ConditionContract
     protected function prependActions(ActionContract ...$actions)
     {
         $this->actions = \array_merge(
-            $actions, (array) $this->actions
+            $actions,
+            (array) $this->actions
         );
     }
 
