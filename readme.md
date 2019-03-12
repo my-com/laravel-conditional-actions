@@ -323,6 +323,7 @@ $toy = Toy::find(10);
 
 /** @var Condition $allOf */
 $allOf = $toy->conditions()->create([
+    'name' => 'AllOfCondition',
     'starts_at' => '2019-05-01 00:00:00',
     'ends_at' => '2019-05-01 23:59:59',
 ]);

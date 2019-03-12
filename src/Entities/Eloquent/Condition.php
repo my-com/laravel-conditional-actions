@@ -4,6 +4,7 @@ namespace ConditionalActions\Entities\Eloquent;
 
 use ConditionalActions\Contracts\ConditionContract;
 use ConditionalActions\Exceptions\ConditionNotFoundException;
+use ConditionalActions\Traits\UsesValidation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -27,9 +28,9 @@ use Illuminate\Support\Collection;
  * @property Carbon|null deleted_at
  * @property Collection|Action[] $actions
  */
-class Condition extends Model
+class Condition extends Model implements UsesValidation
 {
-    use SoftDeletes;
+    use SoftDeletes, ValidatesModel;
 
     protected $fillable = [
         'target_type',
@@ -52,6 +53,11 @@ class Condition extends Model
         'parent_id' => 'int',
         'target_id' => 'int',
     ];
+
+    public static function validatingRules(): array
+    {
+        return ['name' => 'required'];
+    }
 
     public function actions(): HasMany
     {
