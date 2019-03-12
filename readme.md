@@ -252,7 +252,7 @@ Each condition should implement `ConditionalActions\Contracts\ActionContract` co
 The package has a base abstract class `ConditionalActions\Entities\Actions\BaseAction` with all contract methods except the `apply` method.
 
 ```php
-class DiscountAction extends BasenAction
+class DiscountAction extends BaseAction
 {
     /**
      * Applies action to the state and returns a new state.
