@@ -25,7 +25,7 @@ class AllOfCondition extends BaseCondition
             if ($conditionResult !== $this->expectedResult()) {
                 return false;
             }
-            $actions = \array_merge($actions, $condition->getActions());
+            $actions = \array_merge($actions, \collect($condition->getActions())->toArray());
         }
 
         $this->prependActions(...$actions);

@@ -13,7 +13,7 @@ class CreateDummyTargetTable extends Migration
      */
     public function up()
     {
-        Schema::create('dummy_eloquent_targets', function (Blueprint $table) {
+        Schema::create('dummy_eloquent_models', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateDummyTargetTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('condition_actions');
+        Schema::dropIfExists('dummy_eloquent_models');
     }
 }

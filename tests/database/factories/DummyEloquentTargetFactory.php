@@ -1,9 +1,9 @@
 <?php
 
 use Faker\Generator;
-use Tests\Helpers\Dummy\DummyEloquentTarget;
+use Tests\Helpers\Dummy\DummyEloquentModel;
 
-$factory->define(DummyEloquentTarget::class, function (Generator $faker) {
+$factory->define(DummyEloquentModel::class, function (Generator $faker) {
     return [
         'name' => $faker->word,
     ];

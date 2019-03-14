@@ -87,7 +87,7 @@ class ConditionTest extends EloquentTestCase
         $this->assertEquals($condition->id, $actualCondition->getId());
         $this->assertEquals($condition->is_inverted, $actualCondition->isInverted());
         $this->assertEquals($condition->parameters, $actualCondition->getParameters());
-        $this->assertEquals([$action->toAction()], \iterator_to_array($actualCondition->getActions()));
+        $this->assertEquals([$action->toAction()], $actualCondition->getActions());
     }
 
     public function test_get_active_actions_filtered_not_active()

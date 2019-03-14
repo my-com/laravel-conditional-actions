@@ -6,14 +6,14 @@ use ConditionalActions\Contracts\ConditionContract;
 use ConditionalActions\Entities\Eloquent\Condition;
 use Illuminate\Support\Collection;
 use Tests\EloquentTestCase;
-use Tests\Helpers\Dummy\DummyEloquentTarget;
+use Tests\Helpers\Dummy\DummyEloquentModel;
 
 class EloquentTargetTest extends EloquentTestCase
 {
     public function test_get_root_and_children_conditions()
     {
-        /** @var DummyEloquentTarget $target */
-        $target = \create(DummyEloquentTarget::class);
+        /** @var DummyEloquentModel $target */
+        $target = \create(DummyEloquentModel::class);
         /** @var Condition[]|Collection $roots */
         $roots = \factory(Condition::class, 2)->create();
         $children = \create(Condition::class, ['parent_id' => $roots[1]->id]);
@@ -35,8 +35,8 @@ class EloquentTargetTest extends EloquentTestCase
 
     public function test_get_root_and_children_conditions_filtered_by_active()
     {
-        /** @var DummyEloquentTarget $target */
-        $target = \create(DummyEloquentTarget::class);
+        /** @var DummyEloquentModel $target */
+        $target = \create(DummyEloquentModel::class);
         /** @var Condition $activeRoot */
         $activeRoot = \create(Condition::class);
         $inactiveRoot = \create(Condition::class, [], 'inactive');
@@ -60,8 +60,8 @@ class EloquentTargetTest extends EloquentTestCase
 
     public function test_get_root_and_children_conditions_sorted_by_priority()
     {
-        /** @var DummyEloquentTarget $target */
-        $target = \create(DummyEloquentTarget::class);
+        /** @var DummyEloquentModel $target */
+        $target = \create(DummyEloquentModel::class);
         /** @var Condition $root10 */
         [$root10, $root20, $root15] = \createMany(Condition::class, ['priority'], [[10], [20], [15]]);
         [$children10, $children20, $children15] = \createMany(Condition::class, ['priority'], [[10], [20], [15]]);
@@ -83,8 +83,8 @@ class EloquentTargetTest extends EloquentTestCase
 
     public function test_get_root_and_children_conditions_returns_condition_contracts()
     {
-        /** @var DummyEloquentTarget $target */
-        $target = \create(DummyEloquentTarget::class);
+        /** @var DummyEloquentModel $target */
+        $target = \create(DummyEloquentModel::class);
         /** @var Condition $root */
         $root = \create(Condition::class);
         $children = $root->childrenConditions()->save(\create(Condition::class, ['priority' => 10]));
