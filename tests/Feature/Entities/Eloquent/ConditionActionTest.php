@@ -6,6 +6,7 @@ use ConditionalActions\Entities\Actions\UpdateStateAttributeAction;
 use ConditionalActions\Entities\Eloquent\Action;
 use ConditionalActions\Exceptions\ActionNotFoundException;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\EloquentTestCase;
 
@@ -80,5 +81,11 @@ class ConditionActionTest extends EloquentTestCase
 
         $this->assertInstanceOf(UpdateStateAttributeAction::class, $actualAction);
         $this->assertEquals($action->parameters, $actualAction->getParameters());
+    }
+
+    public function test_validate_name()
+    {
+        $this->expectException(ValidationException::class);
+        \create(Action::class, ['name' => '']);
     }
 }

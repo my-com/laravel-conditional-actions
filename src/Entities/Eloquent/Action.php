@@ -4,6 +4,7 @@ namespace ConditionalActions\Entities\Eloquent;
 
 use ConditionalActions\Contracts\ActionContract;
 use ConditionalActions\Exceptions\ActionNotFoundException;
+use ConditionalActions\Traits\UsesValidation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Response;
@@ -21,9 +22,9 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null updated_at
  * @property Carbon|null deleted_at
  */
-class Action extends Model
+class Action extends Model implements UsesValidation
 {
-    use SoftDeletes;
+    use SoftDeletes, ValidatesModel;
 
     protected $table = 'condition_actions';
 
@@ -43,6 +44,11 @@ class Action extends Model
         'priority' => 'int',
         'condition_id' => 'int',
     ];
+
+    public static function validatingRules(): array
+    {
+        return ['name' => 'required'];
+    }
 
     public function isActive(): bool
     {

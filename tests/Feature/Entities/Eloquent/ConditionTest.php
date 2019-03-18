@@ -8,6 +8,7 @@ use ConditionalActions\Entities\Eloquent\Condition;
 use ConditionalActions\Exceptions\ConditionNotFoundException;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\ValidationException;
 use Tests\EloquentTestCase;
 
 class ConditionTest extends EloquentTestCase
@@ -117,5 +118,11 @@ class ConditionTest extends EloquentTestCase
             [$action5->id, $action10->id, $action20->id],
             $actions->pluck('id')->toArray()
         );
+    }
+
+    public function test_validate_name()
+    {
+        $this->expectException(ValidationException::class);
+        \create(Condition::class, ['name' => '']);
     }
 }
