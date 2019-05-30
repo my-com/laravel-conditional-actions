@@ -5,9 +5,9 @@ namespace Tests\Unit;
 use ConditionalActions\ConditionalActionManager;
 use Tests\Helpers\Dummy\DummyAction;
 use Tests\Helpers\Dummy\DummyTarget;
-use Tests\TestCase;
+use Tests\ConditionalActionsTestCase;
 
-class ConditionActionManagerTest extends TestCase
+class ConditionActionManagerTest extends ConditionalActionsTestCase
 {
     /** @var ConditionalActionManager */
     private $manager;

@@ -7,9 +7,9 @@ use ConditionalActions\Contracts\ConditionContract;
 use Tests\Helpers\Dummy\DummyAction;
 use Tests\Helpers\Dummy\DummyCondition;
 use Tests\Helpers\Dummy\DummyTarget;
-use Tests\TestCase;
+use Tests\ConditionalActionsTestCase;
 
-class HasChildrenConditionsTestCase extends TestCase
+class HasChildrenConditionsTestCase extends ConditionalActionsTestCase
 {
     /** @var ConditionContract */
     protected $testCondition;

@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-class EloquentTestCase extends TestCase
+class EloquentConditionalActionsTestCase extends ConditionalActionsTestCase
 {
     protected function setUp()
     {

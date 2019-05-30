@@ -8,9 +8,9 @@ use ConditionalActions\Exceptions\ActionNotFoundException;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
-use Tests\EloquentTestCase;
+use Tests\EloquentConditionalActionsTestCase;
 
-class ConditionActionTest extends EloquentTestCase
+class ConditionActionTest extends EloquentConditionalActionsTestCase
 {
     /** @var Carbon */
     private $now = '2019-01-05 10:00:00';

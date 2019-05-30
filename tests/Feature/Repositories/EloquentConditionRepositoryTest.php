@@ -6,9 +6,9 @@ use ConditionalActions\Entities\Conditions\TrueCondition;
 use ConditionalActions\Entities\Eloquent\Condition;
 use ConditionalActions\Exceptions\ConditionNotFoundException;
 use ConditionalActions\Repositories\EloquentConditionRepository;
-use Tests\EloquentTestCase;
+use Tests\EloquentConditionalActionsTestCase;
 
-class EloquentConditionRepositoryTest extends EloquentTestCase
+class EloquentConditionRepositoryTest extends EloquentConditionalActionsTestCase
 {
     /** @var EloquentConditionRepository */
     private $conditionsRepository;

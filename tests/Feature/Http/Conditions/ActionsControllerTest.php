@@ -11,9 +11,9 @@ use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Support\Carbon;
 use Mockery;
 use Symfony\Component\HttpFoundation\Response;
-use Tests\TestCase;
+use Tests\ConditionalActionsTestCase;
 
-class ActionsControllerTest extends TestCase
+class ActionsControllerTest extends ConditionalActionsTestCase
 {
     /** @var Mockery\MockInterface */
     private $actionRepositoryMock;

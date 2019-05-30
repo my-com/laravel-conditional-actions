@@ -4,9 +4,9 @@ namespace Tests\Unit\Entities\Actions;
 
 use ConditionalActions\Entities\Actions\UpdateStateAttributeAction;
 use ConditionalActions\Entities\State;
-use Tests\TestCase;
+use Tests\ConditionalActionsTestCase;
 
-class UpdateStateAttributeActionTest extends TestCase
+class UpdateStateAttributeActionTest extends ConditionalActionsTestCase
 {
     public function test_state_attribute_updated()
     {
