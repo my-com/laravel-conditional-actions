@@ -10,7 +10,7 @@ use Tests\Helpers\Dummy\DummyFailedCondition;
 use Tests\Helpers\Dummy\DummySucceedCondition;
 use Tests\Helpers\Dummy\DummyTestHelper;
 
-class TestCase extends OrchestraTestCase
+class ConditionalActionsTestCase extends OrchestraTestCase
 {
     use DummyTestHelper;
 

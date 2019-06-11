@@ -4,11 +4,11 @@ namespace Tests\Feature;
 
 use ConditionalActions\Entities\Eloquent\Action;
 use ConditionalActions\Entities\Eloquent\Condition;
-use Tests\EloquentTestCase;
+use Tests\EloquentConditionalActionsTestCase;
 use Tests\Helpers\Dummy\DummyEloquentModel;
 use Tests\Helpers\Dummy\DummyEloquentTarget;
 
-class ConditionalActionManagerTest extends EloquentTestCase
+class ConditionalActionManagerTest extends EloquentConditionalActionsTestCase
 {
     public function test_run_conditional_actions_succeeded()
     {

@@ -5,10 +5,10 @@ namespace Tests\Feature\Traits;
 use ConditionalActions\Contracts\ConditionContract;
 use ConditionalActions\Entities\Eloquent\Condition;
 use Illuminate\Support\Collection;
-use Tests\EloquentTestCase;
+use Tests\EloquentConditionalActionsTestCase;
 use Tests\Helpers\Dummy\DummyEloquentModel;
 
-class EloquentTargetTest extends EloquentTestCase
+class EloquentTargetTest extends EloquentConditionalActionsTestCase
 {
     public function test_get_root_and_children_conditions()
     {

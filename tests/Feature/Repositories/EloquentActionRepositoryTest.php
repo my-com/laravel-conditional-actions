@@ -8,9 +8,9 @@ use ConditionalActions\Entities\Eloquent\Action;
 use ConditionalActions\Entities\Eloquent\Condition;
 use ConditionalActions\Exceptions\ActionNotFoundException;
 use ConditionalActions\Repositories\EloquentActionRepository;
-use Tests\EloquentTestCase;
+use Tests\EloquentConditionalActionsTestCase;
 
-class EloquentActionRepositoryTest extends EloquentTestCase
+class EloquentActionRepositoryTest extends EloquentConditionalActionsTestCase
 {
     /** @var EloquentActionRepository */
     private $actionsRepository;

@@ -9,9 +9,9 @@ use ConditionalActions\Exceptions\ConditionNotFoundException;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\ValidationException;
-use Tests\EloquentTestCase;
+use Tests\EloquentConditionalActionsTestCase;
 
-class ConditionTest extends EloquentTestCase
+class ConditionTest extends EloquentConditionalActionsTestCase
 {
     /** @var Carbon */
     private $now = '2019-01-05 10:00:00';
