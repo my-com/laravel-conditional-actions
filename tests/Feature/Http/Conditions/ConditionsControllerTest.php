@@ -18,7 +18,7 @@ class ConditionsControllerTest extends ConditionalActionsTestCase
     /** @var Mockery\MockInterface */
     private $conditionRepositoryMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
