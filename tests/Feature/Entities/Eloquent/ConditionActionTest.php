@@ -15,7 +15,7 @@ class ConditionActionTest extends EloquentConditionalActionsTestCase
     /** @var Carbon */
     private $now = '2019-01-05 10:00:00';
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         Carbon::setTestNow(Carbon::parse($this->now));

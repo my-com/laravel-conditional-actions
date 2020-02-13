@@ -7,7 +7,7 @@ use Tests\Helpers\Dummy\DummyAction;
 
 class OneOfConditionTest extends HasChildrenConditionsTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->makeTestCondition(\app(OneOfCondition::class));

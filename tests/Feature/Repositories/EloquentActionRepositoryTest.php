@@ -23,7 +23,7 @@ class EloquentActionRepositoryTest extends EloquentConditionalActionsTestCase
         'ends_at' => '2019-01-02 20:00:00',
     ];
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

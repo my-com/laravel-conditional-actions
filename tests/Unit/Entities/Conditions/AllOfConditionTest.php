@@ -8,7 +8,7 @@ use Tests\Helpers\Dummy\DummyCondition;
 
 class AllOfConditionTest extends HasChildrenConditionsTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->makeTestCondition(\app(AllOfCondition::class));

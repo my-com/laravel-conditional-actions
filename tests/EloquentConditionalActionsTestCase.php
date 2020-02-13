@@ -4,7 +4,7 @@ namespace Tests;
 
 class EloquentConditionalActionsTestCase extends ConditionalActionsTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->withFactories(realpath(\dirname(__DIR__) . '/tests/database/factories'));

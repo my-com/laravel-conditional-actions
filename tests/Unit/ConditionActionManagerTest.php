@@ -15,7 +15,7 @@ class ConditionActionManagerTest extends ConditionalActionsTestCase
     /** @var DummyTarget */
     private $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->manager = \app(ConditionalActionManager::class);
